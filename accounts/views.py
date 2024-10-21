@@ -4,13 +4,13 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-
-def home(request):
-    return render(request, "home.html")
-
+def loginView(request):
+    return render(request, 'accounts/login.html')
 
 def registerView(request):
     if request.method == "POST":
+        first_name = request.POST.get("firstname",'')
+        last_name = request.POST.get("lastname", '')
         username = request.POST.get("username")
         email = request.POST.get("email")
         profile_img = request.FILES.get(
@@ -42,6 +42,8 @@ def registerView(request):
         else:
             # Create a new user
             new_user = User.objects.create_user(
+                first_name =first_name,
+                last_name = last_name,
                 username=username,
                 email=email,
                 profile_img=profile_img,
@@ -57,5 +59,4 @@ def registerView(request):
                 return redirect("home")
             elif role == "JB":
                 pass
-
     return render(request, "accounts/register.html")

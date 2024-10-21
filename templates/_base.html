@@ -18,21 +18,20 @@
     <title>{% block title %}My Website{% endblock %}</title>
   </head>
 
-  <body class="bg-gray-100">
-    <header class="relative overflow-hidden mb-5">
+  <body class="bg-gray-100 min-h-screen flex flex-col">
+    <header class="relative overflow-hidden">
       {% block hero_section_intro_content %} {% endblock %}
 
       <!-- Navigation Bar -->
       <div
-        class="flex shadow-md py-4 px-4 sm:px-10 bg-white font-[sans-serif] min-h-[70px] tracking-wide relative z-50"
+        class="flex shadow-md py-4 px-4 sm:px-10 lg:px-[128px] bg-white bg-opacity-60 font-[sans-serif] min-h-[70px] tracking-wide relative z-50"
       >
         <div class="flex flex-wrap items-center justify-between gap-5 w-full">
-          <a href="javascript:void(0)"
-            ><img
-              src="https://readymadeui.com/readymadeui.svg"
-              alt="logo"
-              class="w-36"
-            />
+          <a
+            href="javascript:void(0)"
+            class="text-gray-700 text-2xl font-bold"
+          >
+            JobLens
           </a>
 
           <div
@@ -73,43 +72,43 @@
               </li>
               <li class="max-lg:border-b border-gray-300 max-lg:py-3 px-3">
                 <a
-                  href="javascript:void(0)"
-                  class="hover:text-[#007bff] text-[#007bff] block font-semibold text-[15px]"
+                  href="{% url 'home' %}"
+                  class="hover:text-[#e75768] text-gray-900 font-medium text-[16px]"
                   >Home</a
                 >
               </li>
               <li class="max-lg:border-b border-gray-300 max-lg:py-3 px-3">
                 <a
                   href="javascript:void(0)"
-                  class="hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]"
+                  class="hover:text-[#e75768] text-gray-900 block font-medium text-[16px]"
                   >Team</a
                 >
               </li>
               <li class="max-lg:border-b border-gray-300 max-lg:py-3 px-3">
                 <a
                   href="javascript:void(0)"
-                  class="hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]"
+                  class="hover:text-[#e75768] text-gray-900 block font-medium text-[16px]"
                   >Feature</a
                 >
               </li>
               <li class="max-lg:border-b border-gray-300 max-lg:py-3 px-3">
                 <a
                   href="javascript:void(0)"
-                  class="hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]"
+                  class="hover:text-[#e75768] text-gray-900 block font-medium text-[16px]"
                   >Blog</a
                 >
               </li>
               <li class="max-lg:border-b border-gray-300 max-lg:py-3 px-3">
                 <a
                   href="javascript:void(0)"
-                  class="hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]"
+                  class="hover:text-[#e75768] text-gray-900 block font-medium text-[16px]"
                   >About</a
                 >
               </li>
               <li class="max-lg:border-b border-gray-300 max-lg:py-3 px-3">
                 <a
                   href="javascript:void(0)"
-                  class="hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]"
+                  class="hover:text-[#e75768] text-gray-900 block font-medium text-[16px]"
                   >Contact</a
                 >
               </li>
@@ -118,14 +117,14 @@
 
           <div class="flex max-lg:ml-auto space-x-3">
             <button
-              class="px-4 py-2 text-sm rounded-full font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff]"
+              class="px-4 py-2 text-sm rounded-md font-bold text-gray-700 border-[1px] border-gray-700 bg-transparent transition-all ease-in-out duration-300 hover:bg-gray-700 hover:text-white"
             >
-              Login
+              <a href="{% url 'login' %}">Login</a>
             </button>
             <button
-              class="px-4 py-2 text-sm rounded-full font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff]"
+              class="px-4 py-2 text-sm rounded-md font-bold text-gray-700 border-[1px] border-gray-700 bg-transparent transition-all ease-in-out duration-300 hover:bg-gray-700 hover:text-white"
             >
-              Sign up
+              <a href="{% url 'register' %}">Sign up</a>
             </button>
 
             <button id="toggleOpen" class="lg:hidden">
@@ -145,20 +144,19 @@
           </div>
         </div>
       </div>
-
       {% block hero_section_highlight_content %} {% endblock %}
     </header>
 
     {% block content %}{% endblock %}
 
     <!-- Footer Section  -->
-    <footer class="w-full bg-white p-8">
+    <footer class="mt-auto w-full bg-[#333] p-8">
       <div
-        class="flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 bg-white text-center md:justify-between"
+        class="flex flex-col md:flex-row md:justify-between items-center justify-center gap-y-6 gap-x-12 text-center"
       >
         <div id="logo">
           <a href="{% url 'home' %}">
-            <h1 class="text-slate-700 text-3xl font-bold">JobLens</h1>
+            <h1 class="text-white text-3xl font-bold">JobLens</h1>
           </a>
         </div>
 
@@ -166,7 +164,7 @@
           <li>
             <a
               href="#"
-              class="text-slate-700 hover:text-slate-500 focus:text-slate-500 text-sm"
+              class="text-white hover:text-slate-500 focus:text-slate-500 text-sm"
             >
               About Us
             </a>
@@ -174,7 +172,7 @@
           <li>
             <a
               href="#"
-              class="text-slate-700 hover:text-slate-500 focus:text-slate-500 text-sm"
+              class="text-white hover:text-slate-500 focus:text-slate-500 text-sm"
             >
               License
             </a>
@@ -182,7 +180,7 @@
           <li>
             <a
               href="#"
-              class="text-slate-700 hover:text-slate-500 focus:text-slate-500 text-sm"
+              class="text-white hover:text-slate-500 focus:text-slate-500 text-sm"
             >
               Contribute
             </a>
@@ -190,7 +188,7 @@
           <li>
             <a
               href="#"
-              class="text-slate-700 hover:text-slate-500 focus:text-slate-500 text-sm"
+              class="text-white hover:text-slate-500 focus:text-slate-500 text-sm"
             >
               Contact Us
             </a>
@@ -198,17 +196,19 @@
         </ul>
       </div>
       <p
-        class="block mb-4 text-sm text-center text-slate-500 md:mb-0 border-t border-slate-200 mt-4 pt-4"
+        class="mt-8 text-sm text-center text-slate-200 border-t border-slate-700 pt-4"
       >
         Copyright © 2024&nbsp;
         <a
           href="https://material-tailwind.com/"
           target="_blank"
           rel="noreferrer"
+          class="hover:text-slate-500"
           >JobLens. All Rights Reserved.</a
         >.
       </p>
     </footer>
+
     <script src="{% static 'js/script.js' %}"></script>
   </body>
 </html>

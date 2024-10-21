@@ -121,14 +121,6 @@
         "documentation": {}
     },
     {
-        "label": "registerView",
-        "importPath": "accounts.views",
-        "description": "accounts.views",
-        "isExtraImport": true,
-        "detail": "accounts.views",
-        "documentation": {}
-    },
-    {
         "label": "render",
         "importPath": "django.shortcuts",
         "description": "django.shortcuts",
@@ -138,6 +130,14 @@
     },
     {
         "label": "redirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "render",
         "importPath": "django.shortcuts",
         "description": "django.shortcuts",
         "isExtraImport": true,
@@ -199,7 +199,7 @@
         "kind": 6,
         "importPath": "accounts.migrations.0001_initial",
         "description": "accounts.migrations.0001_initial",
-        "peekOfCode": "class Migration(migrations.Migration):\n    initial = True\n    dependencies = [\n        (\"auth\", \"0012_alter_user_first_name_max_length\"),\n    ]\n    operations = [\n        migrations.CreateModel(\n            name=\"CustomUser\",\n            fields=[\n                (",
+        "peekOfCode": "class Migration(migrations.Migration):\n    initial = True\n    dependencies = [\n        ('auth', '0012_alter_user_first_name_max_length'),\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='CustomUser',\n            fields=[\n                ('is_superuser', models.BooleanField(default=False, help_text='Designates that this user has all permissions without explicitly assigning them.', verbose_name='superuser status')),",
         "detail": "accounts.migrations.0001_initial",
         "documentation": {}
     },
@@ -208,7 +208,7 @@
         "kind": 6,
         "importPath": "accounts.admin",
         "description": "accounts.admin",
-        "peekOfCode": "class CustomUserAdmin(admin.ModelAdmin):\n    list_display = [\n        \"user_id\",\n        \"username\",\n        \"email\",\n        \"role\",\n        \"profile_img\",\n        \"date_joined\",\n        \"last_login\",\n        \"is_active\",",
+        "peekOfCode": "class CustomUserAdmin(admin.ModelAdmin):\n    list_display = [\n        \"user_id\",\n        \"first_name\",\n        \"last_name\",\n        \"username\",\n        \"email\",\n        \"role\",\n        \"profile_img\",\n        \"date_joined\",",
         "detail": "accounts.admin",
         "documentation": {}
     },
@@ -235,7 +235,7 @@
         "kind": 6,
         "importPath": "accounts.models",
         "description": "accounts.models",
-        "peekOfCode": "class CustomUser(AbstractUser):\n    class Role(models.TextChoices):\n        JOBSEEKER = \"JB\", \"Job Seeker\"\n        EMPLOYER = \"EP\", \"Employer\"\n    user_id = models.AutoField(primary_key=True)\n    username = models.CharField(max_length=50, unique=True)\n    email = models.EmailField(max_length=100, unique=True)\n    password = models.CharField(max_length=255)\n    profile_img = models.ImageField(default=\"default.jpg\", upload_to=\"profile_pics\")\n    date_joined = models.DateTimeField(auto_now_add=True)",
+        "peekOfCode": "class CustomUser(AbstractUser):\n    class Role(models.TextChoices):\n        JOBSEEKER = \"JB\", \"Job Seeker\"\n        EMPLOYER = \"EP\", \"Employer\"\n    user_id = models.AutoField(primary_key=True)\n    first_name = models.CharField(max_length=50, blank=True, null=True)  # Allow first name to be optional\n    last_name = models.CharField(max_length=50, blank=True, null=True)   # Allow last name to be optional\n    username = models.CharField(max_length=50, unique=True)\n    email = models.EmailField(max_length=100, unique=True)\n    password = models.CharField(max_length=255)",
         "detail": "accounts.models",
         "documentation": {}
     },
@@ -244,16 +244,16 @@
         "kind": 5,
         "importPath": "accounts.urls",
         "description": "accounts.urls",
-        "peekOfCode": "urlpatterns = [\n    path(\"\", views.home, name=\"home\"),\n    path(\"register/\", views.registerView, name=\"register\"),\n]",
+        "peekOfCode": "urlpatterns = [\n    path(\"register/\", views.registerView, name=\"register\"),\n    path(\"login/\", views.loginView, name=\"login\"),\n]",
         "detail": "accounts.urls",
         "documentation": {}
     },
     {
-        "label": "home",
+        "label": "loginView",
         "kind": 2,
         "importPath": "accounts.views",
         "description": "accounts.views",
-        "peekOfCode": "def home(request):\n    return render(request, \"home.html\")\ndef registerView(request):\n    if request.method == \"POST\":\n        username = request.POST.get(\"username\")\n        email = request.POST.get(\"email\")\n        profile_img = request.FILES.get(\n            \"profile_img\"\n        )  # Changed to request.FILES for handling file uploads\n        role = request.POST.get(\"role\")",
+        "peekOfCode": "def loginView(request):\n    return render(request, 'accounts/login.html')\ndef registerView(request):\n    if request.method == \"POST\":\n        first_name = request.POST.get(\"firstname\",'')\n        last_name = request.POST.get(\"lastname\", '')\n        username = request.POST.get(\"username\")\n        email = request.POST.get(\"email\")\n        profile_img = request.FILES.get(\n            \"profile_img\"",
         "detail": "accounts.views",
         "documentation": {}
     },
@@ -262,7 +262,7 @@
         "kind": 2,
         "importPath": "accounts.views",
         "description": "accounts.views",
-        "peekOfCode": "def registerView(request):\n    if request.method == \"POST\":\n        username = request.POST.get(\"username\")\n        email = request.POST.get(\"email\")\n        profile_img = request.FILES.get(\n            \"profile_img\"\n        )  # Changed to request.FILES for handling file uploads\n        role = request.POST.get(\"role\")\n        password = request.POST.get(\"password\")\n        user_data_has_error = False",
+        "peekOfCode": "def registerView(request):\n    if request.method == \"POST\":\n        first_name = request.POST.get(\"firstname\",'')\n        last_name = request.POST.get(\"lastname\", '')\n        username = request.POST.get(\"username\")\n        email = request.POST.get(\"email\")\n        profile_img = request.FILES.get(\n            \"profile_img\"\n        )  # Changed to request.FILES for handling file uploads\n        role = request.POST.get(\"role\")",
         "detail": "accounts.views",
         "documentation": {}
     },
@@ -271,7 +271,7 @@
         "kind": 5,
         "importPath": "accounts.views",
         "description": "accounts.views",
-        "peekOfCode": "User = get_user_model()\ndef home(request):\n    return render(request, \"home.html\")\ndef registerView(request):\n    if request.method == \"POST\":\n        username = request.POST.get(\"username\")\n        email = request.POST.get(\"email\")\n        profile_img = request.FILES.get(\n            \"profile_img\"\n        )  # Changed to request.FILES for handling file uploads",
+        "peekOfCode": "User = get_user_model()\ndef loginView(request):\n    return render(request, 'accounts/login.html')\ndef registerView(request):\n    if request.method == \"POST\":\n        first_name = request.POST.get(\"firstname\",'')\n        last_name = request.POST.get(\"lastname\", '')\n        username = request.POST.get(\"username\")\n        email = request.POST.get(\"email\")\n        profile_img = request.FILES.get(",
         "detail": "accounts.views",
         "documentation": {}
     },
@@ -478,8 +478,26 @@
         "kind": 5,
         "importPath": "joblens.urls",
         "description": "joblens.urls",
-        "peekOfCode": "urlpatterns = [\n    path(\"\", include(\"accounts.urls\")),\n    path(\"admin/\", admin.site.urls),\n    path(\"__reload__/\", include(\"django_browser_reload.urls\")),\n]",
+        "peekOfCode": "urlpatterns = [\n    path(\"\", views.homeView, name=\"home\"),\n    path(\"about/\", views.aboutView, name=\"about\"),\n    path(\"accounts/\", include(\"accounts.urls\")),\n    path(\"admin/\", admin.site.urls),\n    path(\"__reload__/\", include(\"django_browser_reload.urls\")),\n]",
         "detail": "joblens.urls",
+        "documentation": {}
+    },
+    {
+        "label": "homeView",
+        "kind": 2,
+        "importPath": "joblens.views",
+        "description": "joblens.views",
+        "peekOfCode": "def homeView(request):\n    return render(request, 'home.html')\ndef aboutView(request):\n    return render(request, 'about.html')",
+        "detail": "joblens.views",
+        "documentation": {}
+    },
+    {
+        "label": "aboutView",
+        "kind": 2,
+        "importPath": "joblens.views",
+        "description": "joblens.views",
+        "peekOfCode": "def aboutView(request):\n    return render(request, 'about.html')",
+        "detail": "joblens.views",
         "documentation": {}
     },
     {
