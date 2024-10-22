@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 
 User = get_user_model()
 
@@ -41,7 +42,7 @@ def registerView(request):
             return redirect("register")
         else:
             # Create a new user
-            new_user = User.objects.create_user(
+            User.objects.create_user(
                 first_name =first_name,
                 last_name = last_name,
                 username=username,
@@ -55,8 +56,13 @@ def registerView(request):
             )
 
             # Redirect user based on role
-            if role == "EP":
+            if role == "RE":
                 return redirect("home")
-            elif role == "JB":
-                pass
+            elif role == "CA":
+                return redirect('login')
     return render(request, "accounts/register.html")
+
+
+@login_required
+def profileView(request):
+    return render(request, 'accounts/profile.html', {'user': request.user})
