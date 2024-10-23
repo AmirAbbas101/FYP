@@ -1,4 +1,5 @@
-{% extends '_base.html' %} {% block title %} Login {% endblock title %} {% block content %}
+{% extends '_base.html' %} {% block title %} Login {% endblock title %} 
+{% block content %}
 <div class="container bg-[#f2f2f2] lg:px-64 md:px-8 px-8 py-10 mx-auto">
   <div
     class="flex flex-col items-center min-w-full bg-white bg-opacity-50 shadow-lg mx-auto px-4 md:px-20 py-5 rounded-lg"
@@ -12,7 +13,16 @@
       >
     </h1>
 
-    <form action="#" class="w-full flex flex-col gap-4">
+    <!-- Display messages -->
+    {% if messages %}
+    <ul>
+      {% for message in messages %}
+      <li class="error-message">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <form method="POST" class="w-full flex flex-col gap-4">
       {% csrf_token %}
       <!-- Username or Email -->
       <div class="flex items-start flex-col justify-start">
@@ -54,8 +64,8 @@
           name="role"
           class="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500"
         >
-          <option value="candidate">Candidate</option>
-          <option value="recruiter">Recruiter</option>
+          <option value="CA">Candidate</option>
+          <option value="RE">Recruiter</option>
         </select>
       </div>
 

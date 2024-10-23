@@ -1,68 +1,107 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate, login
 from django.contrib.auth.decorators import login_required
 
 User = get_user_model()
 
-def loginView(request):
-    return render(request, 'accounts/login.html')
-
-def registerView(request):
+def login_view(request):
     if request.method == "POST":
-        first_name = request.POST.get("firstname",'')
-        last_name = request.POST.get("lastname", '')
+        login_identifier = request.POST.get("login")  # Could be username or email
+        password = request.POST.get("password")
+        selected_role = request.POST.get("role")  # Role selected (e.g., "RE" for Recruiter, "CA" for Candidate)
+
+        # Try to authenticate with username
+        user = authenticate(request, username=login_identifier, password=password)
+        
+        # If no match with username, attempt email-based authentication
+        if user is None:
+            user_by_email = User.objects.filter(email=login_identifier).first()
+            if user_by_email:
+                user = authenticate(request, username=user_by_email.username, password=password)
+
+        # Authentication check and role validation
+        if user is not None:
+            if user.role == selected_role:  # Ensure that the selected role matches the user's role
+                login(request, user)
+                messages.success(request, "Login successful!")
+                # Redirect based on role
+                if selected_role == "RE":
+                    return redirect("recruiter_dashboard")
+                elif selected_role == "CA":
+                    return redirect("candidate_dashboard")
+            else:
+                messages.error(request, "The role you selected does not match your account.")
+        else:
+            messages.error(request, "Invalid username/email or password.")
+
+        return redirect("login")
+
+    return render(request, "accounts/login.html")
+
+
+def register_view(request):
+    if request.method == "POST":
+        first_name = request.POST.get("first_name", "")
+        last_name = request.POST.get("last_name", "")
         username = request.POST.get("username")
         email = request.POST.get("email")
-        profile_img = request.FILES.get(
-            "profile_img"
-        )  # Changed to request.FILES for handling file uploads
-        role = request.POST.get("role")
+        profile_image = request.FILES.get("profile_image", None)  # Optional profile image
+        selected_role = request.POST.get("role")  # User role (e.g., "CA" for Candidate, "RE" for Recruiter)
         password = request.POST.get("password")
 
-        user_data_has_error = False
+        validation_errors = []
 
-        # Check if the username already exists
+        # Validate uniqueness of username
         if User.objects.filter(username=username).exists():
-            user_data_has_error = True
-            messages.error(request, "Username already exists")
+            validation_errors.append("Username is already taken.")
 
-        # Check if the email already exists
+        # Validate uniqueness of email
         if User.objects.filter(email=email).exists():
-            user_data_has_error = True
-            messages.error(request, "Email already exists")
+            validation_errors.append("Email is already registered.")
 
-        # Ensure password is valid (at least 5 characters long in this example)
+        # Ensure password is of a valid length
         if len(password) < 5:
-            user_data_has_error = True
-            messages.error(request, "Password must be at least 5 characters long")
+            validation_errors.append("Password must be at least 5 characters long.")
 
-        # If there are errors, redirect to the registration page
-        if user_data_has_error:
+        # If there are validation errors, return them
+        if validation_errors:
+            for error in validation_errors:
+                messages.error(request, error)
             return redirect("register")
-        else:
-            # Create a new user
-            User.objects.create_user(
-                first_name =first_name,
-                last_name = last_name,
-                username=username,
-                email=email,
-                profile_img=profile_img,
-                role=role,
-                password=password,
-            )
-            messages.success(
-                request, "Account created successfully. You can now log in."
-            )
 
-            # Redirect user based on role
-            if role == "RE":
-                return redirect("home")
-            elif role == "CA":
-                return redirect('login')
+        # Create new user
+        User.objects.create_user(
+            first_name=first_name,
+            last_name=last_name,
+            username=username,
+            email=email,
+            profile_img=profile_image,
+            role=selected_role,
+            password=password,
+        )
+
+        messages.success(request, "Account created successfully. Please log in.")
+        
+        # Redirect based on role or default to login
+        return redirect("home" if selected_role == "RE" else "login")
+
     return render(request, "accounts/register.html")
 
 
 @login_required
-def profileView(request):
-    return render(request, 'accounts/profile.html', {'user': request.user})
+def user_profile_view(request):
+    """Display user profile information."""
+    return render(request, "accounts/profile.html", {"user": request.user})
+
+
+@login_required
+def candidate_dashboard_view(request):
+    """Dashboard view for candidates."""
+    return render(request, "accounts/candidate_dashboard.html")
+
+
+@login_required
+def recruiter_dashboard_view(request):
+    """Dashboard view for recruiters."""
+    return render(request, "accounts/recruiter_dashboard.html")
