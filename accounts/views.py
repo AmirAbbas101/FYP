@@ -42,11 +42,11 @@ def login_view(request):
 
 def register_view(request):
     if request.method == "POST":
-        first_name = request.POST.get("first_name", "")
-        last_name = request.POST.get("last_name", "")
+        first_name = request.POST.get("firstname", "")
+        last_name = request.POST.get("lastname", "")
         username = request.POST.get("username")
         email = request.POST.get("email")
-        profile_image = request.FILES.get("profile_image", None)  # Optional profile image
+        profile_image = request.FILES.get("profile_img", None)  # Optional profile image
         selected_role = request.POST.get("role")  # User role (e.g., "CA" for Candidate, "RE" for Recruiter)
         password = request.POST.get("password")
 
@@ -84,7 +84,7 @@ def register_view(request):
         messages.success(request, "Account created successfully. Please log in.")
         
         # Redirect based on role or default to login
-        return redirect("home" if selected_role == "RE" else "login")
+        return redirect("recruiter-registeration" if selected_role == "RE" else "candidate-registeration")
 
     return render(request, "accounts/register.html")
 
@@ -96,12 +96,20 @@ def user_profile_view(request):
 
 
 @login_required
+def recruiter_dashboard_view(request):
+    """Dashboard view for candidates."""
+    return render(request, "accounts/recruiter_dashboard.html")
+
+@login_required
 def candidate_dashboard_view(request):
     """Dashboard view for candidates."""
     return render(request, "accounts/candidate_dashboard.html")
 
 
-@login_required
-def recruiter_dashboard_view(request):
-    """Dashboard view for recruiters."""
-    return render(request, "accounts/recruiter_dashboard.html")
+def recruiter_registeration_view(request):
+    return render(request, 'accounts/recruiter_registeration.html')
+
+def candidate_registeration_view(request):
+    return render(request, 'accounts/candidate_registeration.html')
+
+
