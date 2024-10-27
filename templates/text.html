@@ -1,0 +1,16 @@
+{% extends '_base.html' %}
+
+{% block content %}
+<div
+    class="w-full flex flex-col sm:justify-center sm:items-center sm:gap-8 sm:pt-36 sm:pb-16 rounded-4xl bg-white shadow-2xl">
+    <button type="button"
+        class="rounded-full font-semi-bold transition ease-in-out text-center font-body no-underline hover:no-underline !px-7 !py-3 inline-flex items-center justify-center text-2xl font-bold !py-2.5 text-white !bg-primary hover:!bg-primary-hover active:!bg-primary-active active:scale-[0.97] focus:outline-none focus-visible:outline-none focus:ring-none focus-visible:ring focus-visible:ring-offset-2 focus-visible:ring-primary-hover">
+        <div class="gap-3 [&amp;>svg]:scale-133 [&amp;>svg]:shrink-0 flex gap-2 items-center">Upload Image</div>
+    </button>
+    <div class="hidden sm:flex flex-col gap-1.5">
+        <p class="m-0 font-bold text-xl text-typo-secondary">or drop a file,</p><span
+            class="text-xs text-typo-secondary text-center">paste image or <a href="#"
+                class="text-typo-secondary select-photo-url-btn underline">URL</a> ​ </span>
+    </div>
+</div>
+{% endblock content %}

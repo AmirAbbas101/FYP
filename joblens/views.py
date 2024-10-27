@@ -1,7 +1,10 @@
 from django.shortcuts import render
 
+
 def homeView(request):
-    return render(request, 'home.html')
+    companies = ["intel", "intel", "intel", "intel"]
+    return render(request, "home.html", {"companies": companies})
+
 
 def aboutView(request):
-    return render(request, 'about.html')
+    return render(request, "about.html")

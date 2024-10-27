@@ -1,0 +1,31 @@
+<div class="mt-10 w-[90%] max-w-3xl mx-auto flex rounded-lg shadow-lg overflow-hidden bg-white h-16">
+    <!-- Job Title Input -->
+    <div class="flex items-center w-[40%] h-full px-4 border-r border-gray-200">
+        <i class="ri-search-line text-gray-400 text-xl"></i>
+        <input type="text" name="job-title" id="job-title" placeholder="Job title, keywords, or company"
+            class="h-full w-full pl-2 text-gray-600 border-none placeholder-gray-400 focus:ring-0"
+            aria-label="Job title">
+    </div>
+
+    <!-- Location Dropdown -->
+    <div class="flex items-center w-[40%] h-full px-4 border-r border-gray-200">
+        <i class="ri-map-pin-line text-gray-400 text-xl"></i>
+        <select name="location" id="location"
+            class="h-full w-full pl-2 bg-white text-gray-600 border-none focus:ring-0 cursor-pointer"
+            aria-label="Location">
+            <option value="" disabled selected hidden>Select location</option>
+            <option value="lahore">Lahore</option>
+            <option value="faisalabad">Faisalabad</option>
+            <option value="rawalpindi">Rawalpindi</option>
+            <option value="multan">Multan</option>
+            <option value="islamabad">Islamabad</option>
+            <option value="karachi">Karachi</option>
+            <option value="peshawar">Peshawar</option>
+            <option value="quetta">Quetta</option>
+        </select>
+    </div>
+
+    <!-- Search Button -->
+    <button id="btn-find-job" class="w-[20%] h-full bg-blue-600 text-white font-semibold hover:bg-blue-700"
+        aria-label="Find Job">Find Job</button>
+</div>
