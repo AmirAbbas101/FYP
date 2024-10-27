@@ -81,3 +81,15 @@ function initializeEventListeners() {
 document.addEventListener("DOMContentLoaded", () => {
   initializeEventListeners();
 });
+
+// Browse-jobs.html
+$(document).ready(function () {
+  $(".jobs-filter").click(function () {
+    // Toggle the dropdown just below the clicked header
+    $(this).next(".jobs-filter-dropdown").toggleClass("hidden flex");
+    // Toggle the arrow icon in the clicked header
+    $(this)
+      .find(".arrow")
+      .toggleClass("ri-arrow-up-s-line ri-arrow-down-s-line");
+  });
+});
