@@ -166,3 +166,7 @@ migrations/
 
 # Ignore VSCode config folder
 .vscode/
+
+# project folder that contain dumy data
+profile_pics/
+resumes/
