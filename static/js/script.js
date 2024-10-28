@@ -92,4 +92,11 @@ $(document).ready(function () {
       .find(".arrow")
       .toggleClass("ri-arrow-up-s-line ri-arrow-down-s-line");
   });
+
+  $("#btn-filter").click(function () {
+    $("aside").toggleClass("hidden block");
+  });
+  $("#btn-apply-filter").click(function () {
+    $("aside").toggleClass("hidden block");
+  });
 });

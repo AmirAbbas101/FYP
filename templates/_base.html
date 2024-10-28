@@ -1,4 +1,5 @@
-{% load static tailwind_tags %} {% load static %}
+{% load static tailwind_tags %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,181 +16,21 @@
 </head>
 
 <body class="bg-white min-h-screen flex flex-col">
-  <section class="relative overflow-hidden">
+  {% block header %}
+  <header class="relative overflow-hidden">
     {% block hero_section_intro_content %} {% endblock %}
-
     <!-- Navigation Bar -->
-    <header class="relative z-[999] lg:mb-14">
-      <nav
-        class="flex shadow-sm py-4 px-4 sm:px-10 lg:px-[128px] bg-white text-xl min-h-[70px] min-w-full tracking-wide lg:fixed">
-        <div class="flex flex-wrap items-center justify-between gap-5 w-full">
-          <a href="{% url 'home' %}" class="text-gray-700 text-2xl font-bold">
-            JobLens
-          </a>
-
-          <div id="collapseMenu"
-            class="max-lg:hidden lg:!block max-lg:before:fixed max-lg:before:bg-black max-lg:before:opacity-50 max-lg:before:inset-0 max-lg:before:z-50">
-            <button id="toggleClose" class="lg:hidden fixed top-2 right-4 z-[100] rounded-full bg-white p-3">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 fill-gray-900" viewBox="0 0 320.591 320.591">
-                <path
-                  d="M30.391 318.583a30.37 30.37 0 0 1-21.56-7.288c-11.774-11.844-11.774-30.973 0-42.817L266.643 10.665c12.246-11.459 31.462-10.822 42.921 1.424 10.362 11.074 10.966 28.095 1.414 39.875L51.647 311.295a30.366 30.366 0 0 1-21.256 7.288z"
-                  data-original="#000000"></path>
-                <path
-                  d="M287.9 318.583a30.37 30.37 0 0 1-21.257-8.806L8.83 51.963C-2.078 39.225-.595 20.055 12.143 9.146c11.369-9.736 28.136-9.736 39.504 0l259.331 257.813c12.243 11.462 12.876 30.679 1.414 42.922-.456.487-.927.958-1.414 1.414a30.368 30.368 0 0 1-23.078 7.288z"
-                  data-original="#000000"></path>
-              </svg>
-            </button>
-
-            <ul
-              class="lg:flex gap-x-5 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50">
-              <li class="mb-6 hidden max-lg:block">
-                <a href="{% url 'home' %}">
-                  <a href="{% url 'home' %}">
-                    <h1 class="text-gray-700 mx-auto text-3xl font-bold">
-                      JobLens
-                    </h1>
-                  </a>
-                </a>
-              </li>
-              <li class="max-lg:border-b border-gray-300 max-lg:py-3 px-3">
-                <a href="{% url 'home' %}" class="hover:text-blue-600 text-gray-900 font-medium text-[16px]">Home</a>
-              </li>
-              <li class="max-lg:border-b border-gray-300 max-lg:py-3 px-3">
-                <a href="javascript:void(0)"
-                  class="hover:text-blue-600 text-gray-900 block font-medium text-[16px]">Team</a>
-              </li>
-              <li class="max-lg:border-b border-gray-300 max-lg:py-3 px-3">
-                <a href="javascript:void(0)"
-                  class="hover:text-blue-600 text-gray-900 block font-medium text-[16px]">Feature</a>
-              </li>
-              <li class="max-lg:border-b border-gray-300 max-lg:py-3 px-3">
-                <a href="javascript:void(0)"
-                  class="hover:text-blue-600 text-gray-900 block font-medium text-[16px]">Blog</a>
-              </li>
-              <li class="max-lg:border-b border-gray-300 max-lg:py-3 px-3">
-                <a href="javascript:void(0)"
-                  class="hover:text-blue-600 text-gray-900 block font-medium text-[16px]">About</a>
-              </li>
-              <li class="max-lg:border-b border-gray-300 max-lg:py-3 px-3">
-                <a href="javascript:void(0)"
-                  class="hover:text-blue-600 text-gray-900 block font-medium text-[16px]">Contact</a>
-              </li>
-            </ul>
-          </div>
-
-          <div class="flex max-lg:ml-auto space-x-3">
-            {% if user.is_authenticated %}
-            <!-- profile -->
-            <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown"
-              data-dropdown-placement="bottom-start" class="w-10 h-10 rounded-full cursor-pointer"
-              src="{{ user.profile_img.url }}" alt="User dropdown" />
-
-            <!-- Dropdown menu -->
-            <div id="userDropdown"
-              class="absolute right-1 top-16 z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 ease-in-out duration-300">
-              <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                <div class="uppercase">
-                  {% if user.first_name %} {{user.first_name}}
-                  {{user.last_name}} {% else %} {{user.username}} {% endif %}
-                </div>
-                <div class="font-medium truncate">{{user.email}}</div>
-              </div>
-              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
-                <li>
-                  <a href="{% if user.role == 'RE' %}
-                      {% url 'recruiter' %}
-                    {% else %}
-                      {% url 'candidate' %}
-                    {% endif %}"
-                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                </li>
-                <li>
-                  <a href="{% url 'candidate-settings' %}"
-                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                </li>
-                <li>
-                  <a href="#"
-                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-                </li>
-              </ul>
-              <div class="py-1">
-                <a href="{% url 'logout' %}"
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
-                  out</a>
-              </div>
-            </div>
-
-            {% else %}
-            <a href="{% url 'login' %}">
-              <button
-                class="px-4 py-2 text-sm rounded-md font-bold text-gray-700 border-[1px] border-gray-700 bg-transparent transition-all hover:bg-gray-700 hover:text-white ease-in-out duration-300">
-                Login
-              </button>
-            </a>
-
-            <a href="{% url 'register' %}">
-              <button
-                class="px-4 py-2 text-sm rounded-md font-bold text-gray-700 border-[1px] border-gray-700 bg-transparent transition-all hover:bg-gray-700 hover:text-white ease-in-out duration-300">
-                Sign up
-              </button>
-            </a>
-            {% endif %}
-
-            <button id="toggleOpen" class="lg:hidden">
-              <svg class="w-7 h- fill-gray-900" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                  clip-rule="evenodd"></path>
-              </svg>
-            </button>
-          </div>
-        </div>
-      </nav>
-    </header>
+    {% include 'reuseable-components/nav-bar.html' %}
     {% block hero_section_highlight_content %} {% endblock %}
-  </section>
+  </header>
+  {% endblock header %}
 
   {% block content %}{% endblock %}
 
-  <!-- Footer Section  -->
-  <footer class="mt-auto w-full bg-[#333] p-8">
-    <div class="flex flex-col md:flex-row md:justify-between items-center justify-center gap-y-6 gap-x-12 text-center">
-      <div id="logo">
-        <a href="{% url 'home' %}">
-          <h1 class="text-white text-3xl font-bold">JobLens</h1>
-        </a>
-      </div>
+  <!-- Footer -->
+  {% include 'reuseable-components/footer.html' %}
 
-      <ul class="flex flex-wrap items-center gap-y-2 gap-x-8">
-        <li>
-          <a href="#" class="text-white hover:text-slate-500 focus:text-slate-500 text-sm">
-            About Us
-          </a>
-        </li>
-        <li>
-          <a href="#" class="text-white hover:text-slate-500 focus:text-slate-500 text-sm">
-            License
-          </a>
-        </li>
-        <li>
-          <a href="#" class="text-white hover:text-slate-500 focus:text-slate-500 text-sm">
-            Contribute
-          </a>
-        </li>
-        <li>
-          <a href="#" class="text-white hover:text-slate-500 focus:text-slate-500 text-sm">
-            Contact Us
-          </a>
-        </li>
-      </ul>
-    </div>
-    <p class="mt-8 text-sm text-center text-slate-200 border-t border-slate-700 pt-4">
-      Copyright © 2024&nbsp;
-      <a href="{% url 'home' %}" target="_blank" rel="noreferrer" class="hover:text-slate-500">JobLens. All Rights
-        Reserved.</a>.
-    </p>
-  </footer>
-  <!-- jQuery Script -->
+  <!-- Scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="{% static 'js/script.js' %}"></script>
 </body>

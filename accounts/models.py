@@ -35,6 +35,7 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username
+        
     
 class CandiddateModel(models.Model):
     candidate_id = models.AutoField(primary_key=True)

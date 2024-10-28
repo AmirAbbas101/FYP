@@ -1,4 +1,8 @@
-{% extends '_base.html' %} {% load static %} {% block content %}
+{% extends '_base.html' %} {% load static %}
+
+
+{% block header %}
+{% include '../reuseable-components/nav-bar.html' %}
 <!-- header -->
 <section id="header" class="min-w-full flex flex-col bg-gray-100 px-4 md:px-16 lg:px-32 py-14">
     <h1 class="text-5xl sm:text-7xl font-semibold text-gray-700 tracking-wide max-w-4xl mx-auto">
@@ -15,81 +19,30 @@
     <p class="mt-2 text-lg tracking-tight text-gray-500 max-w-2xl mx-auto">
         Find your next career at companies like HubSpot, Nike, and Dropbox
     </p>
-    {% include 'search-bar.html' %}
+    {% include '../reuseable-components/search-bar.html' %}
 </section>
 
+{% endblock header %}
+
+{% block content %}
 <!-- Main -->
 <section class="min-w-full bg-white py-10 px-4 lg:px-32">
-    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-10">
+    <div class="grid grid-cols-4 lg:grid-cols-4 gap-8 lg:gap-10">
         <!-- Filter Sidebar for Desktop -->
-        <aside class="p-4 hidden lg:block">
-            <div
-                class="jobs-filter text-gray-900 text-md font-medium mb-4 min-w-full flex justify-between items-center cursor-pointer">
-                <h2>Type of Employment</h2>
-                <i class="ri-arrow-down-s-line arrow"></i>
-            </div>
-
-            <!-- Dropdown list for job types -->
-            <ul class="jobs-filter-dropdown flex flex-col gap-y-3 my-4 text-gray-700">
-                <li class="flex items-center">
-                    <input type="checkbox" id="full-time" name="employment-type" value="full-time">
-                    <label for="full-time" class="ml-4"> Full-time (3)</label>
-                </li>
-                <li class="flex items-center">
-                    <input type="checkbox" id="part-time" name="employment-type" value="part-time">
-                    <label for="part-time" class="ml-4"> Part-time (5)</label>
-                </li>
-                <li class="flex items-center">
-                    <input type="checkbox" id="remote" name="employment-type" value="remote">
-                    <label for="remote" class="ml-4"> Remote (2)</label>
-                </li>
-                <li class="flex items-center">
-                    <input type="checkbox" id="internship" name="employment-type" value="internship">
-                    <label for="internship" class="ml-4"> Internship (24)</label>
-                </li>
-                <li class="flex items-center">
-                    <input type="checkbox" id="contract" name="employment-type" value="contract">
-                    <label for="contract" class="ml-4"> Contract (3)</label>
-                </li>
-            </ul>
-
-            <div
-                class="jobs-filter text-gray-900 text-md font-medium mb-4 min-w-full flex justify-between items-center cursor-pointer">
-                <h2>Categories</h2>
-                <i class="ri-arrow-down-s-line arrow"></i>
-            </div>
-
-            <!-- Dropdown list for categories -->
-            <ul class="jobs-filter-dropdown flex flex-col gap-y-3 text-gray-700">
-                <li class="flex items-center">
-                    <input type="checkbox" id="design" name="employment-type" value="design">
-                    <label for="design" class="ml-4"> Design (3)</label>
-                </li>
-                <li class="flex items-center">
-                    <input type="checkbox" id="sales" name="employment-type" value="sales">
-                    <label for="sales" class="ml-4"> Sales (5)</label>
-                </li>
-                <li class="flex items-center">
-                    <input type="checkbox" id="marketing" name="employment-type" value="marketing">
-                    <label for="marketing" class="ml-4"> Marketing (2)</label>
-                </li>
-                <li class="flex items-center">
-                    <input type="checkbox" id="business" name="employment-type" value="business">
-                    <label for="business" class="ml-4"> Business (24)</label>
-                </li>
-                <li class="flex items-center">
-                    <input type="checkbox" id="technology" name="employment-type" value="technology">
-                    <label for="technology" class="ml-4"> Technology (3)</label>
-                </li>
-            </ul>
+        <aside class="p-4 hidden lg:block absolute z-10 bg-gray-100 lg:bg-transparent lg:relative">
+            {% include 'filter-dropdown.html' with filter_title="Type of Employment" filter_name="employment-type"
+            filter_options=employment_options %}
         </aside>
 
         <!-- Job Listings -->
-        <div class="col-span-3">
+        <div class="job-listing col-span-4 lg:col-span-3">
             <div class="flex justify-between items-center mb-8">
-                <div>
-                    <h2 class="text-2xl font-bold text-gray-900">All Jobs</h2>
-                    <p class="text-sm text-gray-500">Showing 73 results</p>
+                <div class="flex items-center">
+                    <i id="btn-filter" class="ri-equalizer-line mr-4 block lg:hidden"></i>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900">All Jobs</h2>
+                        <p class="text-sm text-gray-500">Showing 73 results</p>
+                    </div>
                 </div>
                 <div class="flex items-center space-x-2">
                     <label for="sort" class="text-sm text-gray-700">Sort by:</label>
@@ -298,8 +251,8 @@
                         </div>
                     </a>
                     <!-- Repeat job cards as needed -->
+                </div>
             </div>
         </div>
-    </div>
 </section>
 {% endblock content %}

@@ -1,0 +1,25 @@
+{% extends "_base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock title %}
+
+{% block header %}
+<div></div>
+{% endblock header %}
+
+{% block content %}
+<header class="flex relative">
+    <!-- Sidebar -->
+    {% include 'userpanel/reuseable-components/side-bar.html' %}
+
+    <!-- Main content area -->
+    <div class="flex flex-col w-full bg-white">
+        <!-- Navbar -->
+        {% include 'userpanel/reuseable-components/nav-bar.html' with page_name=page_name %}
+
+        {% block main %}
+        {% endblock main %}
+    </div>
+</header>
+{% endblock content %}
