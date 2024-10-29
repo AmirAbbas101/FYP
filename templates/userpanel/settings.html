@@ -6,188 +6,38 @@
 
     <!-- Nav Section -->
     <section class="border-b-[1px] border-gray-300 flex gap-x-8">
-        <h3 id="btn-my-profile"
-            class="text-base font-bold pb-2 cursor-pointer 
-            {% if active_section == 'my_profile' %} text-gray-700 border-b-[4px] border-blue-600 {% else %} text-gray-500 border-b-[4px] border-white hover:text-gray-700 hover:border-blue-600 {% endif %}">
+        <h3 id="btn-my-profile" class="text-base font-bold pb-2 cursor-pointer border-b-[4px] border-white
+        text-gray-500 hover:text-gray-700 hover:border-blue-600
+        active:text-gray-700 active:border-blue-600 active">
             My Profile
         </h3>
 
-        <h3 id="btn-login-details"
-            class="text-base font-bold pb-2 cursor-pointer 
-            {% if active_section == 'login_details' %} text-gray-700 border-b-[4px] border-blue-600 {% else %} text-gray-500 border-b-[4px] border-white hover:text-gray-700 hover:border-blue-600 {% endif %}">
+        <h3 id="btn-login-details" class="text-base font-bold pb-2 cursor-pointer border-b-[4px] border-white
+        text-gray-500 hover:text-gray-700 hover:border-blue-600
+        active:text-gray-700 active:border-blue-600">
             Login Details
         </h3>
 
-        <h3 id="btn-notifications"
-            class="text-base font-bold pb-2 cursor-pointer 
-            {% if active_section == 'notifications' %} text-gray-700 border-b-[4px] border-blue-600 {% else %} text-gray-500 border-b-[4px] border-white hover:text-gray-700 hover:border-blue-600 {% endif %}">
+        <h3 id="btn-notifications" class="text-base font-bold pb-2 cursor-pointer border-b-[4px] border-white
+        text-gray-500 hover:text-gray-700 hover:border-blue-600
+        active:text-gray-700 active:border-blue-600">
             Notifications
         </h3>
     </section>
 
 
+
     <!-- My profile Settings Section -->
-    <section id="my-profile-settings">
-        <!-- Basic Information -->
-        <div class="border-b-[1px] border-gray-300 py-6 flex flex-col">
-            <h2 class="text-gray-700 text-xl font-bold">Basic Information</h2>
-            <p class="text-gray-500 font-lg">
-                This is your personal information that you can update anytime.
-            </p>
-        </div>
-
-        <!-- Profile Photo -->
-        <div class="border-b-[1px] border-gray-300 py-6 flex flex-col lg:flex-row items-center gap-x-24">
-            <div class="w-72">
-                <h2 class="text-gray-700 text-xl font-bold">Profile Photo</h2>
-                <p class="text-gray-500 font-lg">
-                    This image will be shown publicly as your profile picture, it will help recruiters recognize you!
-                </p>
-            </div>
-
-            <div class="flex gap-4 justify-center items-center">
-                <div class="w-24 h-24 rounded-full overflow-hidden object-center">
-                    <img src="{{user.profile_img.url}}" alt="{{user.username}}">
-                </div>
-
-                <div class="flex items-center justify-center">
-                    <label for="dropzone-file"
-                        class="flex flex-col items-center justify-center w-96 first-letter: border-2 border-[#4640DE] border-dashed rounded-lg cursor-pointer bg-[#4640DE] bg-opacity-10 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 ">
-                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                            <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                            </svg>
-                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click
-                                    to upload</span>
-                                or drag and drop</p>
-                            <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)
-                            </p>
-                        </div>
-                        <input id="dropzone-file" type="file" class="hidden" />
-                    </label>
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- Personal Details -->
-        <div class="border-b-[1px] border-gray-300 py-6 flex gap-x-52">
-            <h2 class="text-gray-700 text-xl font-bold">Personal Details</h2>
-            <div class="mx-8">
-
-                <form method="POST">
-                    {% csrf_token %}
-
-                    <!-- Full Name -->
-                    <div class="flex flex-col gap-y-2 mb-4">
-                        <label for="full_name" class="text-gray-700 font-bold">Full Name</label>
-                        <input type="text" name="full_name" id="full_name" placeholder="Amir Abbas"
-                            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                            required>
-                    </div>
-
-                    <!-- Phone Number and Email -->
-                    <div class="flex justify-between gap-4 mb-4">
-                        <div class="flex flex-col gap-y-2 w-1/2">
-                            <label for="phone_number" class="text-gray-700 font-bold">Phone Number</label>
-                            <input type="tel" name="phone_number" id="phone_number" placeholder="+92 000 000 0000"
-                                class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                pattern="^\+?[0-9\s-]{7,15}$" required>
-                        </div>
-
-                        <div class="flex flex-col gap-y-2 w-1/2">
-                            <label for="email" class="text-gray-700 font-bold">Email</label>
-                            <input type="email" name="email" id="email" placeholder="amir@gmail.com"
-                                class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                required>
-                        </div>
-                    </div>
-
-                    <!-- Date of Birth and Gender -->
-                    <div class="flex justify-between gap-4 mb-4">
-                        <div class="flex flex-col gap-y-2 w-1/2">
-                            <label for="date_of_birth" class="text-gray-700 font-bold">Date of Birth</label>
-                            <input type="date" name="date_of_birth" id="date_of_birth"
-                                class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                required>
-                        </div>
-
-                        <div class="flex flex-col gap-y-2 w-1/2">
-                            <label for="gender" class="text-gray-700 font-bold">Gender</label>
-                            <select name="gender" id="gender"
-                                class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                required>
-                                <option value="" disabled selected>Select Gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <button type="submit"
-                        class="w-full py-3 mt-4 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors">
-                        Update Profile
-                    </button>
-                </form>
-
-            </div>
-        </div>
-
-        <!-- Account Type -->
-        <div class="border-b-[1px] border-gray-300 py-6 flex  items-center gap-x-24">
-            <div class="w-72">
-                <h2 class="text-gray-700 text-xl font-bold">Account Type</h2>
-                <p class="text-gray-500 font-lg">
-                    You can update your account type.
-                </p>
-            </div>
-
-            <div class="flex flex-col gap-4">
-                <div class="flex flex-col gap-4">
-                    <!-- Job Seeker Option -->
-                    <div class="flex items-center">
-                        <input id="job-seeker" type="radio" name="user-type" class="hidden peer">
-                        <label for="job-seeker"
-                            class="flex items-start cursor-pointer text-gray-600 text-sm font-normal peer-checked:text-blue-600">
-                            <span
-                                class="border border-gray-300 rounded-full mr-2 w-4 h-4 mt-1 peer-checked:bg-blue-600 peer-checked:border-blue-600"></span>
-                            <div>
-                                <h5 class="text-sm font-medium">Job Seeker</h5>
-                                <p class="text-sm text-gray-400 mt-1">Looking for a job</p>
-                            </div>
-                        </label>
-                    </div>
-
-                    <!-- Employer Option -->
-                    <div class="flex items-center">
-                        <input id="employer" type="radio" name="user-type" class="hidden peer" checked>
-                        <label for="employer"
-                            class="flex items-start cursor-pointer text-gray-600 text-sm font-normal peer-checked:text-blue-600">
-                            <span
-                                class="border border-gray-300 rounded-full mr-2 w-4 h-4 mt-1 peer-checked:bg-blue-600 peer-checked:border-blue-600"></span>
-                            <div>
-                                <h5 class="text-sm font-medium">Employer</h5>
-                                <p class="text-sm text-gray-400 mt-1">Hiring, sourcing candidates, or posting jobs</p>
-                            </div>
-                        </label>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </section>
+    {% include 'userpanel/reuseable-components/my-profile.html' %}
 
     <!-- Login Details Settings Section -->
-    <section id="login-details-settings"></section>
+    <section id="login-details-settings">
+        login Details
+    </section>
 
     <!-- Notifictions Settings Section -->
-    <section id="notifications-settings"></section>
+    <section id="notifications-settings">
+        Notifiations Settings
+    </section>
 </main>
 {% endblock main %}
