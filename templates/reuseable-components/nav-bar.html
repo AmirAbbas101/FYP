@@ -2,7 +2,7 @@
     <nav
         class="flex shadow-sm py-4 px-4 sm:px-10 lg:px-[128px] bg-white text-xl min-h-[70px] min-w-full tracking-wide lg:fixed">
         <div class="flex flex-wrap items-center justify-between gap-5 w-full">
-            <a href="{% url 'home' %}" class="text-gray-700 text-2xl font-bold">
+            <a href="{% url 'home' %}" class="joblens-logo text-gray-700">
                 JobLens
             </a>
 
@@ -35,8 +35,8 @@
                             class="hover:text-blue-600 text-gray-900 font-medium text-[16px]">Home</a>
                     </li>
                     <li class="max-lg:border-b border-gray-300 max-lg:py-3 px-3">
-                        <a href="javascript:void(0)"
-                            class="hover:text-blue-600 text-gray-900 block font-medium text-[16px]">Team</a>
+                        <a href="{% url 'browse-jobs' %}"
+                            class="hover:text-blue-600 text-gray-900 block font-medium text-[16px]">Jobs</a>
                     </li>
                     <li class="max-lg:border-b border-gray-300 max-lg:py-3 px-3">
                         <a href="javascript:void(0)"
@@ -61,7 +61,7 @@
                 {% if user.is_authenticated %}
                 <!-- profile -->
                 <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown"
-                    data-dropdown-placement="bottom-start" class="w-10 h-10 rounded-full cursor-pointer"
+                    data-dropdown-placement="bottom-start" class="w-14 h-14 rounded-full cursor-pointer"
                     src="{{ user.profile_img.url }}" alt="User dropdown" />
 
                 <!-- Dropdown menu -->
@@ -76,20 +76,14 @@
                     </div>
                     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
                         <li>
-                            <a href="{% if user.role == 'RE' %}
-                      {% url 'recruiter' %}
-                    {% else %}
-                      {% url 'candidate' %}
+                            <a href="{% if user.role == 'CA' %}
+                      {% url 'candidate-dashboard' %}
                     {% endif %}"
                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
                         </li>
                         <li>
-                            <a href="{% url 'candidate-settings' %}"
+                            <a href="{% url 'settings' %}"
                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
                         </li>
                     </ul>
                     <div class="py-1">
@@ -116,7 +110,7 @@
                 {% endif %}
 
                 <button id="toggleOpen" class="lg:hidden">
-                    <svg class="w-7 h- fill-gray-900" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="w-7 h-7 fill-gray-900" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
                             d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
                             clip-rule="evenodd"></path>

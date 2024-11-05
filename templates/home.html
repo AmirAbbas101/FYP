@@ -23,7 +23,7 @@
   </p>
 
   <!-- Main Heading -->
-  <h1 class="text-5xl sm:text-7xl font-semibold text-white tracking-wide max-w-4xl t mx-auto">
+  <h1 class="text-7xl sm:text-7xl font-bold text-white tracking-wide max-w-4xl t mx-auto">
     Find Your <span class="relative text-blue-600">
       <span>Dream Job</span>
       <svg class="absolute right-0 top-12 w-full h-1/2 fill-blue-600/50" viewBox="0 0 418 42" aria-hidden="true">
@@ -40,6 +40,7 @@
     success.
   </p>
 
+  {% if not user.is_authenticated %}
   <!-- Action Buttons -->
   <div class="mt-10 flex flex-wrap justify-center gap-4">
     <a href="{% url 'register' %}"
@@ -49,6 +50,9 @@
       class="px-6 py-3 text-slate-200 border border-slate-200 font-semibold rounded-md hover:bg-slate-200 hover:text-gray-900 focus:outline-none">Learn
       More</a>
   </div>
+  {% endif %}
+
+
   <!-- Job Search Bar -->
   {% include './reuseable-components/search-bar.html' %}
 </section>
@@ -59,7 +63,7 @@
 <!-- Companies We've Helped Grow -->
 <section class="py-12 px-4 bg-gray-100 sm:py-16 lg:px-32 w-full">
   <div class="text-center mb-12">
-    <h2 class="text-2xl font-semibold text-gray-700">Companies We've Helped Grow</h2>
+    <h3 class="text-3xl font-semibold text-gray-700">Companies We've Helped Grow</h3>
     <p class="text-gray-500 mt-2">Proud to support industry leaders in their growth journey</p>
   </div>
 
@@ -81,7 +85,7 @@
   <div>
     <div>
       <div class="flex justify-between">
-        <h2 class="text-3xl font-medium text-gray-700">Explore by <span class="text-blue-600">category</span></h2>
+        <h3 class="text-3xl font-bold text-gray-700">Explore by <span class="text-blue-600">category</span></h3>
         <a href="" class="text-blue-700 flex align-middle justify-center">Show all jobs <i
             class="ri-arrow-right-line text-xl text-blue-600"></i></a>
       </div>
@@ -94,7 +98,7 @@
 
             <i class="category-icon ri-pencil-ruler-2-line text-3xl text-blue-600 group-hover:text-white"></i>
 
-            <h2 class="category text-xl font-bold text-gray-700 group-hover:text-white">Design</h2>
+            <h5 class="category text-xl font-bold text-gray-700 group-hover:text-white">Design</h5>
 
             <p class="available-jobs text-gray-500 group-hover:text-white">
               <span>243</span> jobs available
@@ -110,7 +114,7 @@
 
             <i class="category-icon ri-megaphone-line text-3xl text-blue-600 group-hover:text-white"></i>
 
-            <h2 class="category text-xl font-bold text-gray-700 group-hover:text-white">Marketing</h2>
+            <h5 class="category text-xl font-bold text-gray-700 group-hover:text-white">Marketing</h5>
 
             <p class="available-jobs text-gray-500 group-hover:text-white">
               <span>20</span> jobs available
@@ -126,7 +130,7 @@
 
             <i class="category-icon ri-bar-chart-box-ai-line text-3xl text-blue-600 group-hover:text-white"></i>
 
-            <h2 class="category text-xl font-bold text-gray-700 group-hover:text-white">Sales</h2>
+            <h5 class="category text-xl font-bold text-gray-700 group-hover:text-white">Sales</h5>
 
             <p class="available-jobs text-gray-500 group-hover:text-white">
               <span>243</span> jobs available
@@ -142,7 +146,7 @@
 
             <i class="category-icon ri-wallet-3-line text-3xl text-blue-600 group-hover:text-white"></i>
 
-            <h2 class="category text-xl font-bold text-gray-700 group-hover:text-white">Finance</h2>
+            <h5 class="category text-xl font-bold text-gray-700 group-hover:text-white">Finance</h5>
 
             <p class="available-jobs text-gray-500 group-hover:text-white">
               <span>243</span> jobs available
@@ -158,7 +162,7 @@
 
             <i class="category-icon ri-code-s-slash-line text-3xl text-blue-600 group-hover:text-white"></i>
 
-            <h2 class="category text-xl font-bold text-gray-700 group-hover:text-white">Development</h2>
+            <h5 class="category text-xl font-bold text-gray-700 group-hover:text-white">Development</h5>
 
             <p class="available-jobs text-gray-500 group-hover:text-white">
               <span>243</span> jobs available
@@ -174,7 +178,7 @@
 
             <i class="category-icon ri-briefcase-line text-3xl text-blue-600 group-hover:text-white"></i>
 
-            <h2 class="category text-xl font-bold text-gray-700 group-hover:text-white">Business</h2>
+            <h5 class="category text-xl font-bold text-gray-700 group-hover:text-white">Business</h5>
 
             <p class="available-jobs text-gray-500 group-hover:text-white">
               <span>243</span> jobs available
@@ -190,7 +194,7 @@
 
             <i class="category-icon ri-pencil-ruler-2-fill text-4xl text-blue-600 group-hover:text-white"></i>
 
-            <h2 class="category text-2xl font-bold text-gray-700 group-hover:text-white">Design</h2>
+            <h5 class="category text-xl font-bold text-gray-700 group-hover:text-white">Design</h5>
 
             <p class="available-jobs text-gray-500 group-hover:text-white">
               <span>243</span> jobs available
@@ -206,7 +210,7 @@
 
             <i class="category-icon ri-pencil-ruler-2-fill text-4xl text-blue-600 group-hover:text-white"></i>
 
-            <h2 class="category text-2xl font-bold text-gray-700 group-hover:text-white">Design</h2>
+            <h5 class="category text-xl font-bold text-gray-700 group-hover:text-white">Design</h5>
 
             <p class="available-jobs text-gray-500 group-hover:text-white">
               <span>243</span> jobs available
@@ -223,7 +227,7 @@
 <section class="bg-blue-600 py-16 px-4 md:py-10 min-w-full lg:px-36">
   <div class="min-w-full flex justify-between items-center">
     <div class="flex flex-col gap-y-4 max-w-full md:max-w-[28rem]  items-start">
-      <h2 class="text-5xl md:text-6xl font-semibold text-gray-100">Start posting jobs today</h2>
+      <h2 class="text-5xl md:text-6xl font-bold text-gray-100">Start posting jobs today</h2>
       <p class="text-gray-100 text-lg">Start posting jobs for free.</p>
       <a href="{% url 'register' %}">
         <button class="bg-gray-100 hover:bg-gray-200 px-4 py-2 font-medium text-blue-600">Sign Up For Free</button>
@@ -241,7 +245,7 @@
 
     <div>
       <div class="flex justify-between">
-        <h2 class="text-3xl font-medium text-gray-700">Featured <span class="text-blue-600">jobs</span></h2>
+        <h3 class="text-3xl font-bold text-gray-700">Featured <span class="text-blue-600">jobs</span></h3>
         <a href="" class="text-blue-700 flex align-middle justify-center">Show all jobs <i
             class="ri-arrow-right-line text-xl text-blue-600"></i></a>
       </div>
@@ -464,10 +468,10 @@
 </section>
 
 <!-- Latest Jobs -->
-<section class="sm:py-16 px-4 bg-white md:py-10 min-w-full lg:px-32">
+<section class="sm:py-16 px-4 bg-white md:py-10 min-w-full lg:px-32 text-gray-500">
   <div>
     <div class="flex justify-between">
-      <h2 class="text-3xl font-medium text-gray-700">Latest <span class="text-blue-600">jobs</span></h2>
+      <h3 class="text-3xl font-bold text-gray-700">Latest <span class="text-blue-600">jobs</span></h3>
       <a href="" class="text-blue-700 flex align-middle justify-center">Show all jobs <i
           class="ri-arrow-right-line text-xl text-blue-600"></i></a>
     </div>

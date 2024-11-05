@@ -1,8 +1,7 @@
-from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import get_user_model, authenticate, login, logout
+from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
-from .models import CandiddateModel
+from django.shortcuts import redirect, render
 
 User = get_user_model()
 
@@ -35,9 +34,10 @@ def login_view(request):
                 messages.success(request, "Login successful!")
                 # Redirect based on role
                 if selected_role == "RE":
-                    return redirect("recruiter")
+                    return redirect("candidate-dashboard")
                 elif selected_role == "CA":
-                    return redirect("candidate")
+                    return redirect("candidate-dashboard")
+
             else:
                 messages.error(
                     request, "The role you selected does not match your account."
@@ -50,9 +50,10 @@ def login_view(request):
     return render(request, "accounts/login.html")
 
 
+@login_required
 def logout_view(request):
     logout(request)
-    return redirect("login")  # Replace 'login' with the name of your login page URL
+    return redirect("home")  # Replace 'login' with the name of your login page URL
 
 
 def register_view(request):
@@ -103,73 +104,3 @@ def register_view(request):
         # Redirect based on role or default to login
         return redirect("login")
     return render(request, "accounts/register.html")
-
-
-@login_required
-def user_profile_view(request):
-    """Display user profile information."""
-    return render(request, "accounts/profile.html", {"user": request.user})
-
-
-@login_required
-def recruiter_dashboard_view(request):
-    """Dashboard view for candidates."""
-    return render(request, "accounts/recruiter_dashboard.html")
-
-
-@login_required
-def candidate_dashboard_view(request):
-    try:
-        # Try to get the candidate profile associated with the logged-in user
-        candidate_profile = CandiddateModel.objects.get(user_id=request.user.user_id)
-    except CandiddateModel.DoesNotExist:
-        # If the profile doesn't exist, redirect to the candidate registration form
-        return redirect(
-            "candidate-settings"
-        )  # Use your candidate registration URL name here
-
-    # If the candidate profile exists, show the dashboard
-    return render(
-        request,
-        "accounts/candidate_dashboard.html",
-        {"candidate_profile": candidate_profile},
-    )
-
-
-def recruiter_settings_view(request):
-    return render(request, "accounts/recruiter_settings.html")
-
-
-@login_required
-def candidate_settings_view(request):
-    if request.method == "POST":
-        # Get the current user (who is registering as a candidate)
-        current_user = request.user
-
-        # Collect form data from the request
-        phone_number = request.POST.get("phone")
-        address = request.POST.get("address")
-        skills = request.POST.get("skills", "")
-        education = request.POST.get("education", "")
-        experience = request.POST.get("experience", "")
-        resume = request.FILES.get("resume", None)
-
-        # Check if the user already has a candidate profile
-        (current_user.user_id,)
-        if CandiddateModel.objects.filter(user_id=current_user).exists():
-            # You may choose to redirect or show an error if a profile already exists
-            return redirect("candidate")  # Redirect to candidate dashboard
-
-        # Create a new candidate profile
-        CandiddateModel.objects.create(
-            user_id=current_user,  # Link the candidate profile to the current user
-            phone=phone_number,
-            address=address,
-            skills=skills,
-            education=education,
-            experience=experience,
-            resume=resume,
-        )
-        return redirect("candidate")
-
-    return render(request, "accounts/candidate_settings.html")

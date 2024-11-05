@@ -1,5 +1,8 @@
 {% extends 'userpanel/base.html' %}
 {% load static %}
+{% block title %}
+Settings
+{% endblock title %}
 
 {% block main %}
 <main class="relative px-8 py-8 flex flex-col gap">
@@ -28,16 +31,12 @@
 
 
     <!-- My profile Settings Section -->
-    {% include 'userpanel/reuseable-components/my-profile.html' %}
+    {% include 'userpanel/reuseable-components/my-profile-settings.html' %}
 
     <!-- Login Details Settings Section -->
-    <section id="login-details-settings">
-        login Details
-    </section>
+    {% include 'userpanel/reuseable-components/login-details-settings.html' %}
 
     <!-- Notifictions Settings Section -->
-    <section id="notifications-settings">
-        Notifiations Settings
-    </section>
+    {% include 'userpanel/reuseable-components/notifications-settings.html' %}
 </main>
 {% endblock main %}

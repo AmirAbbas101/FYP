@@ -1,16 +1,20 @@
-{% extends '_base.html' %} {% block title %} Login {% endblock title %}
+{% extends '_base.html' %}
+{% load static %} {% block title %} Login {% endblock title %}
 {% block content %}
-<div class="container bg-[#f2f2f2] lg:px-64 md:px-8 px-8 py-10 min-w-full">
-  <h1 class="text-xl font-bold text-center text-gray-700 dark:text-gray-200 mb-8">
-    Login to
-    <a href="{% url 'home' %}" class="text-blue-600 hover:text-blue-700 text-2xl cursor-pointer duration-300 ease-out">JobLens</a>
-  </h1>
-  <div class="flex flex-col items-center min-w-full bg-white shadow-sm mx-auto px-4 md:px-20 py-5 rounded-2xl">
-    <h1 class="text-xl font-bold text-center text-gray-700 dark:text-gray-200 mb-8">
-      Login
-    </h1>
+<div class="min-w-full grid grid-rows-1 grid-cols-2">
+  <div class="hidden bg-gray-100 lg:grid items-center justify-center">
+    <img src="{% static 'imgs/login.png' %}" alt="" class="h-[60%]">
+  </div>
 
-    <!-- Display messages -->
+  <div
+    class="min-h-full flex flex-col justify-center items-center min-w-full bg-white px-16 py-8 my-auto col-span-2 lg:col-span-1">
+    {% block form %}
+    <h3 class="text-3xl font-bold text-center text-gray-700 dark:text-gray-200 mb-8">
+      Login to
+      <a href="{% url 'home' %}"
+        class="text-blue-600 hover:text-blue-700 cursor-pointer duration-300 ease-out">JobLens</a>
+    </h3>
+
     {% if messages %}
     <ul>
       {% for message in messages %}
@@ -19,7 +23,7 @@
     </ul>
     {% endif %}
 
-    <form method="POST" class="w-full flex flex-col gap-4">
+    <form method="POST" class="w-full flex flex-col gap-y-4">
       {% csrf_token %}
       <!-- Username or Email -->
       <div class="flex items-start flex-col justify-start">
@@ -53,13 +57,13 @@
         Login
       </button>
     </form>
-
     <!-- Registration Link -->
     <div class="mt-4 text-center">
       <span class="text-sm text-gray-500 dark:text-gray-300">Don't have an account?</span>
       <a href="{% url 'register' %}" class="text-blue-600 hover:text-blue-700">Register</a>
     </div>
+    {% endblock form %}
   </div>
-</div>
 
+</div>
 {% endblock content %}

@@ -1,20 +1,20 @@
 <section id="my-profile-settings">
     <!-- Section Component -->
-    <div class="section border-b border-gray-300 py-6">
+    <div class="section border-gray-300 flex-col">
         <h2 class="section-title">Basic Information</h2>
         <p class="section-description">This is your personal information that you can update anytime.</p>
     </div>
 
     <!-- Profile Photo -->
-    <div class="section border-b border-gray-300 py-6 lg:flex lg:gap-x-24">
+    <div class="section border-gray-300 flex-col lg:flex-row gap-x-24">
         <div class="w-72">
             <h2 class="section-title">Profile Photo</h2>
             <p class="section-description">This image will be shown publicly as your profile picture, it will help
                 recruiters recognize you!</p>
         </div>
         <div class="profile-photo flex gap-4 justify-center items-center">
-            <div class="photo-preview w-24 rounded-full overflow-hidden">
-                <img src="{{ user.profile_img.url }}" alt="{{ user.username }}">
+            <div class="photo-preview w-24 h-24 rounded-full overflow-hidden object-cover">
+                <img src="{{ user.profile_img.url }}" alt="{{ user.username }}" class="h-24 w-24 object-cover">
             </div>
             <div class="upload-area">
                 <label for="dropzone-file"
@@ -25,14 +25,14 @@
                             drop</p>
                         <p class="text-xs text-gray-500">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                     </div>
-                    <input id="dropzone-file" type="file" class="hidden" accept="image/png, image/jpeg, image/jpg" />
+                    <input id="dropzone-file" type="file" class="hidden" />
                 </label>
             </div>
         </div>
     </div>
 
     <!-- Personal Details Form -->
-    <div class="flex section border-b border-gray-300 py-6 lg:flex-row lg:gap-x-24">
+    <div class="section border-gray-300 flex-col lg:flex-row gap-x-56">
         <h2 class="section-title">Personal Details</h2>
         <form method="POST" class="form mx-8 space-y-4">
             {% csrf_token %}
@@ -72,7 +72,7 @@
     </div>
 
     <!-- Account Type -->
-    <div class="section border-b border-gray-300 py-6 lg:flex lg:gap-x-24">
+    <div class="section border-gray-300 flex-col lg:flex-row gap-x-56">
         <div class="w-72">
             <h2 class="section-title">Account Type</h2>
             <p class="section-description">You can update your account type.</p>

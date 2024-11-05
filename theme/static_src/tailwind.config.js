@@ -42,14 +42,7 @@ module.exports = {
     // '../../**/*.py'
   ],
   theme: {
-    extend: {
-      colors: {
-        "american-purple": "#3B1E54",
-        "lavender-purple": "#9B7EBD",
-        thistle: "#D4BEE4",
-        "bright-gray": "#EEEEEE",
-      },
-    },
+    extend: {},
   },
   plugins: [
     /**

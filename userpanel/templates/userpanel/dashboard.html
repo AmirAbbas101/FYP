@@ -1,0 +1,44 @@
+{% extends 'userpanel/base.html' %}
+{% load static %}
+
+{% block title %}
+Dashboard
+{% endblock title %}
+
+{% block main %}
+<section class="flex flex-col gap-y-6 p-6">
+    <!-- Header Section -->
+    <div>
+        <h2 class="section-title">Good morning, <span class="capitalize">{{user.username}}</span></h2>
+        <p class="section-description">Here is what’s happening with your job search applications from July 19 - July
+            25.</p>
+    </div>
+
+    <div class="grid grid-rows-4 lg:grid-rows-2 grid-cols-1 lg:grid-cols-5 gap-x-4 gap-y-6">
+        <!-- Statistics Section -->
+        <div class="dashboard-card">
+            <h4 class="h4">Total Jobs Applied</h4>
+            <h2 class="section-title">0</h2>
+        </div>
+
+        <div class="dashboard-card">
+            <h4 class="h4">Interviewed</h4>
+            <h2 class="section-title">15</h2>
+        </div>
+
+        <!-- Applied Jobs and Upcoming Interviews Section -->
+        <div class="dashboard-card lg:col-start-2 lg:col-end-4 lg:row-start-1 lg:row-end-3">
+            <h2 class="section-title">Jobs Applied Status</h2>
+        </div>
+
+        <div class="dashboard-card lg:col-start-4 lg:col-end-6 lg:row-span-2 lg:row-start-1 lg:row-end-3">
+            <h2 class="section-title">Upcoming Interviews</h2>
+        </div>
+    </div>
+
+    <!-- Recent Applications Section -->
+    <div class="dashboard-card">
+        <h2 class="section-title">Recent Application History</h2>
+    </div>
+</section>
+{% endblock main %}

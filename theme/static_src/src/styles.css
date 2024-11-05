@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.active {
+  @apply text-gray-500 border-blue-600;
+}
+
+.h1 {
+  @apply text-7xl font-bold;
+}
+
+.h2 {
+  @apply text-5xl font-medium;
+}
+
+.h3 {
+  @apply text-3xl font-medium;
+}
+
+.h4 {
+  @apply text-2xl font-medium;
+}
+
+.h5 {
+  @apply text-xl font-medium;
+}
+
+.item-active {
+  @apply text-blue-600 bg-blue-100;
+}
+
+.dashboard-card {
+  @apply flex flex-col px-6 py-6 border border-gray-300;
+}
