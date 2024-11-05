@@ -45,9 +45,15 @@ function setupProfileDropdownToggle() {
   }
 }
 
+// Login and Sign up form validation
 // Validate Passwords
 function arePasswordsMatching(password, confirmPassword) {
   return password === confirmPassword;
+}
+
+function arePasswordVaild(password) {
+  const isValidPassword = /^(?=.*?[0-9])(?=.*?[A-Za-z]).{8,32}$/;
+  return isValidPassword.test(password);
 }
 
 // Password Validation Event
