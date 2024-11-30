@@ -1,0 +1,18 @@
+<!-- Logo Section -->
+{% load static %}
+<div class="flex gap-2 items-center">
+    <i id="btn-show-sidebar"
+        class="ri-menu-unfold-line mr-4 cursor-pointer inline-block lg:hidden text-xl font-bold"></i>
+    <img src="{% static 'imgs/dropbox-logo.png' %}" alt="company-logo" class="w-10 h-10">
+    <div class="flex flex-col">
+        <p class="text-sm text-gray-500">Company</p>
+        <h3 class="text-gray-700 font-bold">Dropbox</h3>
+    </div>
+</div>
+<div class="flex justify-center items-center gap-x-4">
+    <i class="ri-notification-2-line text-2xl font-bold"></i>
+    <a href="{% url 'home' %}" class="text-white bg-blue-600 px-4 py-2 font-medium">
+        <i class="ri-add-line"></i>
+        Post a Job
+    </a>
+</div>

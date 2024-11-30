@@ -1,57 +1,38 @@
 /**
- * This is a minimal config.
- *
- * If you need the full config, get it from here:
- * https://unpkg.com/browse/tailwindcss@latest/stubs/defaultConfig.stub.js
+ * Tailwind CSS Configuration File
+ * This file contains a minimal config customized for a Django project.
  */
 
 module.exports = {
   content: [
     /**
-     * HTML. Paths to Django template files that will contain Tailwind CSS classes.
+     * Paths to Django template files where Tailwind CSS classes are used.
+     * Adjust these paths based on your project's structure.
      */
-
-    /*  Templates within theme app (<tailwind_app_name>/templates), e.g. base.html. */
-    "../templates/**/*.html",
-
-    /*
-     * Main templates directory of the project (BASE_DIR/templates).
-     * Adjust the following line to match your project structure.
-     */
-    "../../templates/**/*.html",
-
-    /*
-     * Templates in other django apps (BASE_DIR/<any_app_name>/templates).
-     * Adjust the following line to match your project structure.
-     */
-    "../../**/templates/**/*.html",
-
-    /**
-     * JS: If you use Tailwind CSS in JavaScript, uncomment the following lines and make sure
-     * patterns match your project structure.
-     */
-    /* JS 1: Ignore any JavaScript in node_modules folder. */
-    // '!../../**/node_modules',
-    /* JS 2: Process all JavaScript files in the project. */
-    // '../../**/*.js',
-
-    /**
-     * Python: If you use Tailwind CSS classes in Python, uncomment the following line
-     * and make sure the pattern below matches your project structure.
-     */
-    // '../../**/*.py'
+    "../templates/**/*.html", // Templates in the theme app
+    "../../templates/**/*.html", // Main templates directory
+    "../../**/templates/**/*.html", // Templates in other apps
   ],
   theme: {
-    extend: {},
+    extend: {
+      /**
+       * Custom colors for your project.
+       * Make sure these are correctly defined and used in your templates.
+       */
+      colors: {
+        primary: '#ffffff',    // White background
+        secondary: '#333333',  // Dark gray text
+        green: '#26ae61',      // Green color for buttons, etc.
+        darkgreen: '#11a652',  // Dark green for hover or accent
+      },
+    },
   },
   plugins: [
     /**
-     * '@tailwindcss/forms' is the forms plugin that provides a minimal styling
-     * for forms. If you don't like it or have own styling for forms,
-     * comment the line below to disable '@tailwindcss/forms'.
+     * Plugins for additional Tailwind functionality.
      */
-    require("@tailwindcss/forms"),
-    require("@tailwindcss/typography"),
-    require("@tailwindcss/aspect-ratio"),
+    require("@tailwindcss/forms"), // Minimal styling for forms
+    require("@tailwindcss/typography"), // Typography plugin for rich text
+    require("@tailwindcss/aspect-ratio"), // Utilities for aspect ratios
   ],
 };

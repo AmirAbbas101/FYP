@@ -1,0 +1,45 @@
+{% extends 'companies/base.html' %}
+{% load static %}
+
+{% block title %}
+Dashboard
+{% endblock title %}
+
+{% block main %}
+<section class="flex flex-col gap-y-6 p-6">
+    <!-- Header Section -->
+    <div>
+        <h2 class="section-title">Good morning, <span class="capitalize">{{user.username}}</span></h2>
+        <p class="section-description">Here is your job listings statistic report from July 19 - July 25.</p>
+    </div>
+
+    <div class="grid grid-cols-1 grid-rows-3 lg:grid-cols-3 lg:grid-rows-1 gap-6">
+        <a href="">
+            <div class="flex justify-between items-center p-6 bg-blue-600 text-white gap-x-2">
+                <h2 class="text-6xl font-bold">76</h2>
+                <p class="font-medium">New candidates to review</p>
+                <i class="ri-arrow-right-s-line"></i>
+            </div>
+        </a>
+        <a href="">
+            <div class="flex justify-between items-center p-6 bg-[#56CDAD] text-white gap-x-2">
+                <h2 class="text-6xl font-bold">3</h2>
+                <p class="font-medium">Schedule for today</p>
+                <i class="ri-arrow-right-s-line"></i>
+            </div>
+        </a>
+        <a href="">
+            <div class="flex justify-between items-center p-6 bg-[#26A4FF] text-white gap-x-2">
+                <h2 class="text-6xl font-bold">24</h2>
+                <p class="font-medium">messages received</p>
+                <i class="ri-arrow-right-s-line"></i>
+            </div>
+        </a>
+    </div>
+
+    <!-- Recent Applications Section -->
+    <div class="dashboard-card">
+        <h2 class="section-title">Recent Application History</h2>
+    </div>
+</section>
+{% endblock main %}

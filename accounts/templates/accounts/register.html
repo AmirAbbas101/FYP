@@ -1,10 +1,8 @@
-{% extends 'accounts/login.html' %}
-{% load static %} {% block title %} Login {% endblock title %}
-
-{% block form %}
+{% extends 'accounts/login.html' %} {% load static %} {% block title %} Login
+{% endblock title %} {% block form %}
 <h3 class="text-3xl font-bold text-center text-gray-700 dark:text-gray-200 mb-8">
   Sign up to
-  <a href="{% url 'home' %}" class="text-blue-600 hover:text-blue-700 cursor-pointer duration-300 ease-out">JobLens</a>
+  <a href="{% url 'home' %}" class="text-green hover:text-darkgreen cursor-pointer duration-300 ease-out">JobLens</a>
 </h3>
 
 {% if messages %}
@@ -23,7 +21,7 @@
     <label for="firstname" class="text-sm text-gray-700 dark:text-gray-200 mr-2">First Name<span
         class="text-[#e24456] text-lg">*</span></label>
     <input type="text" id="firstname" name="firstname"
-      class="w-full px-3 text-gray-700 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-950"
+      class="w-full px-3 text-gray-700 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-green"
       required />
   </div>
 
@@ -32,7 +30,7 @@
     <label for="lastname" class="text-sm text-gray-700 dark:text-gray-200 mr-2">Last Name<span
         class="text-[#e24456] text-lg">*</span></label>
     <input type="text" id="lastname" name="lastname"
-      class="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-950"
+      class="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-green"
       required />
   </div>
 
@@ -41,7 +39,7 @@
     <label for="username" class="text-sm text-gray-700 dark:text-gray-200 mr-2">Username<span
         class="text-[#e24456] text-lg">*</span></label>
     <input type="text" id="username" name="username"
-      class="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-950"
+      class="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-green"
       required />
   </div>
 
@@ -50,7 +48,7 @@
     <label for="email" class="text-sm text-gray-700 dark:text-gray-200 mr-2">Email<span
         class="text-[#e24456] text-lg">*</span></label>
     <input type="email" id="email" name="email"
-      class="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-950"
+      class="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-green"
       required />
   </div>
 
@@ -60,7 +58,7 @@
       Role<span class="text-[#e24456] text-lg">*</span>
     </label>
     <select id="role" name="role"
-      class="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-gray-950"
+      class="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-green"
       required>
       <!-- Role options directly aligned with the enum values -->
       <option value="CA">Candidate</option>
@@ -93,7 +91,7 @@
   <div class="flex items-start flex-col justify-start">
     <label for="password" class="text-sm text-gray-700 dark:text-gray-200 mr-2">Password:</label>
     <input type="password" id="password" name="password"
-      class="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-950"
+      class="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-green"
       required />
   </div>
 
@@ -101,7 +99,7 @@
   <div class="flex items-start flex-col justify-start">
     <label for="confirmPassword" class="text-sm text-gray-700 dark:text-gray-200 mr-2">Confirm Password:</label>
     <input type="password" id="confirmPassword" name="confirmPassword"
-      class="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-950"
+      class="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-green"
       required />
   </div>
 
@@ -115,6 +113,6 @@
 <!-- Login Link -->
 <div class="mt-4 text-center">
   <span class="text-sm text-gray-500 dark:text-gray-300">Already have an account?</span>
-  <a href="{% url 'login' %}" class="text-blue-600 hover:text-blue-700">Login</a>
+  <a href="{% url 'login' %}" class="text-green hover:text-darkgreen">Login</a>
 </div>
 {% endblock form %}

@@ -1,0 +1,30 @@
+{% extends "_base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock title %}
+
+{% block header %}
+<div></div>
+{% endblock header %}
+
+{% block content %}
+<header class="flex relative">
+    <!-- Sidebar -->
+    <aside id="sidebar"
+        class="hidden absolute z-50 w-full lg:static lg:w-72 bg-gray-100 shadow-md lg:flex flex-col justify-between">
+        {% include 'companies/reuseable-components/side-bar.html' %}
+    </aside>
+
+    <!-- Main content area -->
+    <div class="flex flex-col w-full bg-white">
+        <!-- Navbar -->
+        <nav class="h-20 bg-transparent px-8 shadow-sm flex justify-between items-center">
+            {% include 'companies/reuseable-components/nav-bar.html' with page_name=page_name %}
+        </nav>
+
+        {% block main %}
+        {% endblock main %}
+    </div>
+</header>
+{% endblock content %}

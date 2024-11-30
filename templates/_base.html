@@ -15,7 +15,7 @@
   <title>{% block title %}My Website{% endblock %}</title>
 </head>
 
-<body class="bg-white min-h-screen flex flex-col">
+<body class="bg-primary min-h-screen flex flex-col">
   {% block header %}
   <header class="relative overflow-hidden">
     {% block hero_section_intro_content %} {% endblock %}
@@ -28,7 +28,9 @@
   {% block content %}{% endblock %}
 
   <!-- Footer -->
+  {% block footer %}
   {% include 'reuseable-components/footer.html' %}
+  {% endblock footer %}
 
   <!-- Scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

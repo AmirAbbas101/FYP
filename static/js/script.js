@@ -51,10 +51,10 @@ function arePasswordsMatching(password, confirmPassword) {
   return password === confirmPassword;
 }
 
-function arePasswordVaild(password) {
-  const isValidPassword = /^(?=.*?[0-9])(?=.*?[A-Za-z]).{8,32}$/;
-  return isValidPassword.test(password);
-}
+// function arePasswordValid(password) {
+//   const isValidPassword = /^(?=.*?[0-9])(?=.*?[A-Za-z]).{8,32}$/;
+//   return isValidPassword.test(password);
+// }
 
 // Password Validation Event
 function setupPasswordValidation() {
@@ -67,7 +67,10 @@ function setupPasswordValidation() {
     form.addEventListener("submit", function (event) {
       const password = passwordField.value.trim();
       const confirmPassword = confirmPasswordField.value.trim();
-
+      // if (!arePasswordValid(password)) {
+      //   alert("Passwords must contain 1-9 A-Z and a-z!");
+      //   event.preventDefault(); // Prevent form submission
+      // }
       if (!arePasswordsMatching(password, confirmPassword)) {
         alert("Passwords do not match!");
         event.preventDefault(); // Prevent form submission
@@ -88,8 +91,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeEventListeners();
 });
 
-// Browse-jobs.html
 $(document).ready(function () {
+  // Browse-jobs.html
   $(".jobs-filter").click(function () {
     // Toggle the dropdown just below the clicked header
     $(this).next(".jobs-filter-dropdown").toggleClass("hidden flex");
@@ -105,17 +108,23 @@ $(document).ready(function () {
   $("#btn-apply-filter").click(function () {
     $("aside").toggleClass("hidden block");
   });
-});
 
-// Settings.html
-$(document).ready(function () {
-  $("#btn-sidebar-toggle").on("click", () => {
-    $("#sidebar").toggleClass("hidden");
-    $("#btn-sidebar-toggle").toggleClass("ri-menu-fill ri-close-large-line");
+
+  // Sidebar Toggle
+  $("#btn-open-sidebar").on("click", () => {
+    if ($("#sidebar").hasClass("hidden")) {
+      $("#sidebar").removeClass("hidden");
+    }
   });
-});
 
-$(document).ready(function () {
+  $("#btn-close-sidebar").on("click", () => {
+    if (!$("#sidebar").hasClass("#hidden")) {
+      $("#sidebar").addClass("hidden");
+    }
+  });
+
+
+  // Settings.html
   const $profileTab = $("#my-profile-settings");
   const $loginDetailsTab = $("#login-details-settings");
   const $notificationTab = $("#notifications-settings");
@@ -150,4 +159,5 @@ $(document).ready(function () {
     toggleActiveTab($notificationTab, $profileTab, $loginDetailsTab);
     setActiveButton($btnNotificationTab, $btnProfileTab, $btnLoginDetailsTab);
   });
+
 });

@@ -1,0 +1,16 @@
+{% extends 'companies/base.html' %}
+{% load static %}
+
+{% block title %}
+Job listing
+{% endblock title %}
+
+{% block main %}
+<section class="flex flex-col gap-y-6 p-6">
+    <!-- Header Section -->
+    <div>
+        <h2 class="section-title">Good morning, <span class="capitalize">{{user.username}}</span></h2>
+        <p class="section-description">Here is your job listings statistic report from July 19 - July 25.</p>
+    </div>
+</section>
+{% endblock main %}

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.btn-green {
+  @apply text-primary px-6 py-3 bg-green font-semibold rounded-md hover:bg-darkgreen focus:outline-none shadow-md ease-in-out duration-300;
+}
+
 .active {
   @apply text-gray-500 border-blue-600;
 }
