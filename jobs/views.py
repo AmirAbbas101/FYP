@@ -8,9 +8,10 @@ def browseJobsView(request):
         {"id": "part-time", "value": "part-time", "label": "Part-time (5)"},
         # More options...
     ]
+    page_name = "jobs"
     context = {
         "employment_options": employment_options,
-        # Additional context...
+        "page_name": page_name,
     }
 
     return render(request, "jobs/browse-jobs.html", context)

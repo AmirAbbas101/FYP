@@ -1,5 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&display=swap");
 
+:root {
+  --color-primary: #ffffff; /* White */
+  --color-secondary: #333333; /* Dark Gray */
+  --color-green: #26ae61; /* Light Green */
+  --color-dark-green: #11a652; /* Dark Green */
+  --button-padding: 10px 20px; /* Button padding */
+  --button-bg-color: var(--color-green); /* Button background color */
+  --button-bg-hover-color: var(
+    --color-dark-green
+  ); /* Button hover background color */
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -71,33 +83,6 @@ h6 {
   width: 100%;
 }
 
-/* Profile Photo */
-.photo-preview {
-  width: 6rem; /* w-24 */
-  height: 6rem;
-  border-radius: 9999px; /* rounded-full */
-  overflow: hidden;
-}
-
-/* Dropzone for File Upload */
-.dropzone {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 24rem; /* w-96 */
-  padding-top: 1.25rem; /* pt-5 */
-  padding-bottom: 1.5rem; /* pb-6 */
-  border: 2px dashed #4640de; /* Custom Blue */
-  border-radius: 0.5rem; /* rounded-lg */
-  background-color: rgba(70, 64, 222, 0.1); /* bg-opacity-10 */
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.dropzone:hover {
-  background-color: #f3f4f6; /* gray-100 */
-}
 
 /* Account Option Wrapper */
 .account-type {
@@ -127,8 +112,8 @@ h6 {
 }
 
 .account-option input:checked + .radio-circle {
-  background-color: #3b82f6; /* blue-600 */
-  border-color: #3b82f6; /* blue-600 */
+  background-color: var(--color-green); /* blue-600 */
+  border-color: var(--color-green); /* blue-600 */
 }
 /* Form Inputs */
 .form-input {
@@ -140,7 +125,7 @@ h6 {
 }
 
 .form-input:focus {
-  border-color: #3b82f6; /* blue-500 */
+  border-color: var(--color-green); /* blue-500 */
 }
 
 /* Submit Button */
@@ -150,12 +135,12 @@ h6 {
   padding: 0.75rem; /* py-3 */
   margin-top: 1rem; /* mt-4 */
   color: #ffffff; /* text-white */
-  background-color: #2563eb; /* blue-600 */
+  background-color: var(--color-green); /* blue-600 */
   transition: background-color 0.2s ease;
 }
 
 .submit-button:hover {
-  background-color: #1d4ed8; /* blue-700 */
+  background-color: var(--button-bg-hover-color); /* blue-700 */
 }
 
 /* Form Labels */
