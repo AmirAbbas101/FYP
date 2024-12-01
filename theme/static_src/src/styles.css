@@ -3,43 +3,63 @@
 @tailwind utilities;
 
 @layer utilities {
+  /* Headings */
+  .h1,
+  .h2,
+  .h3,
+  .h4,
+  .h5 {
+    @apply font-serif font-medium;
+  }
+
   .h1 {
     @apply text-7xl font-bold;
   }
 
   .h2 {
-    @apply text-5xl font-medium;
+    @apply text-5xl;
   }
 
   .h3 {
-    @apply text-3xl font-medium;
+    @apply text-3xl;
   }
 
   .h4 {
-    @apply text-2xl font-medium;
+    @apply text-2xl;
   }
 
   .h5 {
-    @apply text-xl font-medium;
+    @apply text-xl;
   }
 
+  /* Dashboard Card */
   .dashboard-card {
     @apply flex flex-col px-6 py-6 border border-gray-300;
   }
 
+  /* Transitions */
   .transition {
     @apply duration-300 ease-in-out;
   }
+
   /* Buttons */
+  .btn {
+    @apply font-semibold rounded-md shadow-md transition;
+  }
+
   .btn-green {
-    @apply text-primary px-6 py-3 bg-green font-semibold rounded-md hover:bg-darkgreen focus:outline-none shadow-md ease-in-out duration-300;
+    @apply btn px-6 py-3 text-primary bg-green hover:bg-darkgreen focus:outline-none;
   }
 
   .btn-apply {
-    @apply bg-green text-white font-bold px-10 py-3  hover:bg-darkgreen;
+    @apply btn bg-green text-white px-10 py-3 hover:bg-darkgreen;
   }
 
-  /* Navigation bar */
+  .submit-button {
+    @apply btn w-[50%] float-left p-3 mt-4 text-primary bg-green hover:bg-darkgreen;
+  }
+
+  /* Navigation Bar */
   .nav-item {
     @apply pb-2 border-b-4 font-medium text-[16px] hover:text-green;
   }
@@ -65,17 +85,42 @@
     @apply text-base font-bold pb-2 cursor-pointer border-b-[4px] hover:text-darkgreen hover:border-darkgreen;
   }
 
-  /* Sidebar  */
-  .item-active {
-    @apply text-green bg-blue-100;
-  }
-
-  .item-inactive {
-    @apply text-gray-500 hover:bg-blue-100 hover:text-darkgreen;
-  }
-
+  /* Sidebar */
   .sidebar-item {
     @apply flex items-center gap-x-3 px-4 py-2;
   }
 
+  .item-active {
+    @apply sidebar-item text-green bg-blue-100;
+  }
+
+  .item-inactive {
+    @apply sidebar-item text-gray-500 hover:bg-blue-100 hover:text-darkgreen;
+  }
+
+  /* Section Wrapper */
+  .section {
+    @apply relative border-b-[1px] border-solid border-primary py-6 px-0 flex items-start;
+  }
+
+  .section-title {
+    @apply text-gray-700 text-xl font-bold;
+  }
+
+  .section-description {
+    @apply text-gray-500 text-lg;
+  }
+
+  /* Form Wrapper */
+  .form {
+    @apply flex flex-col gap-4;
+  }
+
+  .form-row {
+    @apply flex gap-4;
+  }
+
+  .form-group {
+    @apply flex flex-col gap-2 w-full;
+  }
 }
