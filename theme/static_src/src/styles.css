@@ -58,7 +58,11 @@
 
   /* User Profile Settings */
   .active {
-    @apply text-gray-500 border-green;
+    @apply text-green border-green;
+  }
+
+  .settings-nav-item {
+    @apply text-base font-bold pb-2 cursor-pointer border-b-[4px] hover:text-darkgreen hover:border-darkgreen;
   }
 
   /* Sidebar  */
@@ -73,4 +77,5 @@
   .sidebar-item {
     @apply flex items-center gap-x-3 px-4 py-2;
   }
+
 }
