@@ -1,55 +1,118 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from accounts.manager import CustomUserManager
-from django.contrib.auth.models import AbstractUser
+from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import AbstractBaseUser
+from django.utils import timezone
 
 
-class CustomUser(AbstractUser):
-    objects = CustomUserManager()
-
-    class Role(models.TextChoices):
-        CANDIDATE = "CA", "Candidate"
-        RECRUITER = "RE", "Recruiter"
-
-    user_id = models.AutoField(primary_key=True)
-    first_name = models.CharField(
-        max_length=50, blank=False, help_text='Enter your first name', null=False
-    )  # Optional first name
-    last_name = models.CharField(
-        max_length=50, blank=False, help_text='Enter your last name', null=False
-    )  # Optional last name
-    username = models.CharField(max_length=50, unique=True)
-    email = models.EmailField(max_length=100, unique=True)
-    password = models.CharField(max_length=255)
-    profile_img = models.ImageField(
-        default="profile_pics/default.png", upload_to="profile_pics"
+class User(AbstractBaseUser):
+    user_id = models.BigAutoField(primary_key=True)
+    user_name = models.CharField(max_length=50, unique=True, verbose_name=_("Username"))
+    email = models.EmailField(unique=True, verbose_name=_("Email Address"))
+    password = models.CharField(max_length=255, verbose_name=_("Password"))
+    role = models.CharField(
+        max_length=50,
+        choices=[("CA", "Candidate"), ("RE", "Recruiter")],
+        default="CA",
+        verbose_name=_("Role"),
     )
-    date_joined = models.DateTimeField(auto_now_add=True)
-    last_login = models.DateTimeField(null=True, blank=True)
-    is_active = models.BooleanField(default=True)
-    is_verified = models.BooleanField(default=False)
-    role = models.CharField(max_length=2, choices=Role.choices, default=Role.CANDIDATE)
+    profile_img = models.ImageField(
+        default="profile_images/default.png",
+        upload_to="profile_images",
+        blank=True,
+        null=True,
+        verbose_name=_("Profile Image"),
+    )
+    date_joined = models.DateTimeField(auto_now_add=True, verbose_name=_("Date Joined"))
+    last_login = models.DateTimeField(
+        null=True, blank=True, verbose_name=_("Last Login")
+    )
+    is_active = models.BooleanField(default=True, verbose_name=_("Active"))
+    is_verified = models.BooleanField(default=False, verbose_name=_("Verified"))
+    is_staff = models.BooleanField(default=False, verbose_name=_("Verified"))
+    is_superuser = models.BooleanField(default=False, verbose_name=_("Verified"))
+
+    objects = CustomUserManager()
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["user_name"]
 
     class Meta:
-        verbose_name = "Custom User"
-        verbose_name_plural = "Custom Users"
+        ordering = ["-date_joined"]
+        verbose_name = _("User")
+        verbose_name_plural = _("Users")
 
     def __str__(self):
-        return self.username
-        
-    
-class CandiddateModel(models.Model):
-    candidate_id = models.AutoField(primary_key=True)
-    user_id = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='candidat_profile')
-    phone = models.CharField(max_length=15)
-    address = models.CharField(max_length=255)
-    skills = models.TextField(blank=True, null=True)
-    education = models.TextField(blank=True, null=True)
-    experience = models.TextField(blank=True, null=True)
-    resume = models.FileField(upload_to='resumes/',blank=True, null=True)  
+        return self.user_name
+
+    def set_last_login(self):
+        """
+        Updates the last login time for the user.
+        """
+        self.last_login = timezone.now()
+        self.save()
+
+    def verify_user(self):
+        """
+        Marks the user as verified.
+        """
+        self.is_verified = True
+        self.save()
+
+
+class Candidate(models.Model):
+    candidate_id = models.BigAutoField(primary_key=True)
+    user = models.OneToOneField(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name="candidate_profile",
+        verbose_name=_("User"),
+    )
+    full_name = models.CharField(max_length=255, verbose_name=_("Full Name"))
+    phone = models.CharField(
+        max_length=15,
+        verbose_name=_("Phone Number"),
+        help_text=_("Enter a valid phone number."),
+    )
+    address = models.TextField(verbose_name=_("Address"))
+    skills = models.TextField(
+        verbose_name=_("Skills"),
+        help_text=_("List skills separated by commas, e.g., Python, Django, React."),
+    )
+    education = models.TextField(
+        verbose_name=_("Education"),
+        help_text=_(
+            "Provide educational background with degrees, institutions, and years."
+        ),
+    )
+    experience = models.TextField(
+        verbose_name=_("Experience"),
+        help_text=_(
+            "List previous work experience with roles, companies, and durations."
+        ),
+    )
+    resume_file = models.FileField(
+        upload_to="resumes/",
+        verbose_name=_("Resume File"),
+        help_text=_("Upload your resume in PDF format."),
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True, verbose_name=_("Profile Created At")
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True, verbose_name=_("Profile Updated At")
+    )
 
     class Meta:
-        verbose_name = 'Candidate'
-        verbose_name_plural= 'Candidates'
-    
+        ordering = ["full_name"]
+        verbose_name = _("candidate")
+        verbose_name_plural = _("candidates")
+
     def __str__(self):
-        return f'Candidate: {self.user.username}'
+        return self.full_name
+
+    def display_skills(self):
+        """
+        Returns a formatted string of skills as a list.
+        """
+        return [skill.strip() for skill in self.skills.split(",")]

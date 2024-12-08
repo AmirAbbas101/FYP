@@ -1,28 +1,28 @@
-from django.contrib import admin
-from .models import CandiddateModel, CustomUser
+# from django.contrib import admin
+# from .models import Candidate, User
 
 
-@admin.register(CustomUser)
-class CustomUserAdmin(admin.ModelAdmin):
-    list_display = [
-        "user_id",
-        "first_name",
-        "last_name",
-        "username",
-        "email",
-        "role",
-        "profile_img",
-        "date_joined",
-        "last_login",
-        "is_active",
-        "is_verified",
-        "password",
-    ]
+# @admin.register(User)
+# class UserAdmin(admin.ModelAdmin):
+#     list_display = [
+#         "user_id",
+#         "first_name",
+#         "last_name",
+#         "username",
+#         "email",
+#         "role",
+#         "profile_img",
+#         "date_joined",
+#         "last_login",
+#         "is_active",
+#         "is_verified",
+#         "password",
+#     ]
 
 
-admin.site.register(CandiddateModel)
-# @admin.register(CandiddateModel)
-# class CandiddateModelAdmin(admin.ModelAdmin):
+# admin.site.register(Candidate)
+# @admin.register(Candidate)
+# class CandidateAdmin(admin.ModelAdmin):
 #     list_display = [
 #         "candidate_id",
 #         "user",  # Display the related user (via ForeignKey or OneToOneField)

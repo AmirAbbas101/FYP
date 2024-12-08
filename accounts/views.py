@@ -8,21 +8,21 @@ User = get_user_model()
 
 def login_view(request):
     if request.method == "POST":
-        login_identifier = request.POST.get("login")  # Could be username or email
+        login_identifier = request.POST.get("login")
         password = request.POST.get("password")
         selected_role = request.POST.get(
             "role"
         )  # Role selected (e.g., "RE" for Recruiter, "CA" for Candidate)
 
-        # Try to authenticate with username
-        user = authenticate(request, username=login_identifier, password=password)
+        # Try to authenticate with user_name
+        user = authenticate(request, user_name=login_identifier, password=password)
 
-        # If no match with username, attempt email-based authentication
+        # If no match with user_name, attempt email-based authentication
         if user is None:
             user_by_email = User.objects.filter(email=login_identifier).first()
             if user_by_email:
                 user = authenticate(
-                    request, username=user_by_email.username, password=password
+                    request, user_name=user_by_email.user_name, password=password
                 )
 
         # Authentication check and role validation
@@ -43,7 +43,7 @@ def login_view(request):
                     request, "The role you selected does not match your account."
                 )
         else:
-            messages.error(request, "Invalid username/email or password.")
+            messages.error(request, "Invalid user_name/email or password.")
 
         return redirect("login")
 
@@ -58,9 +58,7 @@ def logout_view(request):
 
 def register_view(request):
     if request.method == "POST":
-        first_name = request.POST.get("firstname", "")
-        last_name = request.POST.get("lastname", "")
-        username = request.POST.get("username")
+        user_name = request.POST.get("user_name")
         email = request.POST.get("email")
         profile_image = request.FILES.get("profile_img", None)  # Optional profile image
         selected_role = request.POST.get(
@@ -70,8 +68,8 @@ def register_view(request):
 
         validation_errors = []
 
-        # Validate uniqueness of username
-        if User.objects.filter(username=username).exists():
+        # Validate uniqueness of user_name
+        if User.objects.filter(user_name=user_name).exists():
             validation_errors.append("Username is already taken.")
 
         # Validate uniqueness of email
@@ -79,8 +77,8 @@ def register_view(request):
             validation_errors.append("Email is already registered.")
 
         # Ensure password is of a valid length
-        if len(password) < 5:
-            validation_errors.append("Password must be at least 5 characters long.")
+        if len(password) < 8:
+            validation_errors.append("Password must be at least 8 characters long.")
 
         # If there are validation errors, return them
         if validation_errors:
@@ -90,9 +88,7 @@ def register_view(request):
 
         # Create new user
         User.objects.create_user(
-            first_name=first_name,
-            last_name=last_name,
-            username=username,
+            user_name=user_name,
             email=email,
             profile_img=profile_image,
             role=selected_role,

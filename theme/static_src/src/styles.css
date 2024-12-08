@@ -100,7 +100,7 @@
 
   /* Section Wrapper */
   .section {
-    @apply relative border-b-[1px] border-solid border-primary py-6 px-0 flex items-start;
+    @apply relative border-b border-solid border-primary py-6 px-0 flex items-start;
   }
 
   .section-title {
@@ -122,5 +122,42 @@
 
   .form-group {
     @apply flex flex-col gap-2 w-full;
+  }
+
+  /* Logo */
+  .joblens-logo {
+    @apply text-2xl font-bold transition hover:text-gray-500;
+  }
+
+  /* Account Options */
+  .account-type {
+    @apply flex flex-col gap-4;
+  }
+
+  .account-option {
+    @apply flex items-center cursor-pointer text-gray-600 text-sm font-normal;
+  }
+
+  .radio-circle {
+    @apply inline-block w-4 h-4 border border-gray-300 rounded-full mr-2 mt-1 transition;
+  }
+
+  /* Highlight selected radio button */
+  .account-option input:checked + .radio-circle {
+    @apply bg-green border-green;
+  }
+
+  /* Form Inputs */
+  .form-input {
+    @apply w-full p-3 border border-gray-300 outline-none transition;
+  }
+
+  .form-input:focus {
+    @apply border-green;
+  }
+
+  /* Form Labels */
+  .form-label {
+    @apply text-gray-700 font-medium;
   }
 }
