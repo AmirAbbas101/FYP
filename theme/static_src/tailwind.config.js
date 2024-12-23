@@ -22,8 +22,12 @@ module.exports = {
       colors: {
         primary: '#ffffff',    // White background
         secondary: '#333333',  // Dark gray text
-        green: '#26ae61',      // Green color for buttons, etc.
-        darkgreen: '#11a652',  // Dark green for hover or accent
+        // green: '#26ae61',      // Green color for buttons, etc.
+        darkgreen: '#11a652',
+        green: {
+          DEFAULT: '#26ae61', // Tailwind's default green color
+        },
+
       },
     },
   },

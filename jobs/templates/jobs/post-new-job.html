@@ -1,0 +1,9 @@
+{% extends '_base.html' %} {% load static %}
+{% block title %}
+Jobs
+{% endblock title %}
+{% block content %}
+<div class="px-6 lg:px-[128px] py-6">
+    {% include 'jobs/post-job-form.html' %}
+</div>
+{% endblock content %}

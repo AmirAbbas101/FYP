@@ -57,8 +57,15 @@
                 </ul>
             </div>
 
-            <div class="flex max-lg:ml-auto space-x-3">
+            <div class="flex max-lg:ml-auto justify-center items-center space-x-3">
                 {% if user.is_authenticated %}
+                {% if user.role == 'RE' %}
+                <a href="{% url 'post-job' user.user_id %}">
+                    <button class="btn-navbar">
+                        Post a Job
+                    </button>
+                </a>
+                {% endif %}
                 <!-- profile -->
                 <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown"
                     data-dropdown-placement="bottom-start" class="w-14 h-14 rounded-full cursor-pointer"
@@ -86,24 +93,24 @@
                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
                         </li>
                     </ul>
+
                     <div class="py-1">
                         <a href="{% url 'logout' %}"
-                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
+                            class="block min-w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
                             out</a>
                     </div>
+
                 </div>
 
                 {% else %}
                 <a href="{% url 'login' %}">
-                    <button
-                        class="px-4 py-2 text-sm rounded-md font-bold text-white bg-green hover:bg-darkgreen ease-in-out duration-300">
+                    <button class="btn-navbar">
                         Login
                     </button>
                 </a>
 
                 <a href="{% url 'register' %}">
-                    <button
-                        class="px-4 py-2 text-sm rounded-md font-bold text-primary bg-green hover:bg-darkgreen transition-all ease-in-out duration-300">
+                    <button class="btn-navbar">
                         Sign up
                     </button>
                 </a>

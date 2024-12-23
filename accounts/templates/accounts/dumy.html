@@ -1,0 +1,129 @@
+<!-- <div class="relative h-16">
+  <a href="{% url 'home' %}"
+    class=" absolute top-2 right-2 w-52 text-green border-[1px] border-green hover:bg-green hover:text-primary text-center py-2 ease-out duration-300">
+    Back to homepage
+  </a>
+</div> -->
+<div class="min-h-screen flex justify-center items-center fle-col pb-6 px-4">
+    <div class="grid md:grid-cols-2 items-center gap-10 max-w-6xl w-full">
+        <div>
+            <h2 class="lg:text-4xl text-4xl font-extrabold lg:leading-[55px] text-gray-800">
+                Join JobLens Today: Unlock Your Career Potential
+            </h2>
+            <p class="text-sm mt-6 text-gray-800">Create your account and explore personalized tools and features to
+                advance
+                your
+                career or streamline your recruitment process.</p>
+
+            <div class="mt-12 text-gray-800">
+                <ul class="text-sm list-inside pl-6 list-disc">
+                    <li><span class="font-semibold">Effortless Account Setup:</span> Simple and quick
+                        registration process.</li>
+                    <li><span class="font-semibold">Tailored Job Matches:</span> Get recommendations
+                        based on your skills.</li>
+                    <li><span class="font-semibold">Comprehensive Dashboard:</span> Manage jobs,
+                        applications, and profiles in one place.</li>
+                    <li><span class="font-semibold">Role-Specific Features:</span> Tools designed for
+                        candidates and recruiters.</li>
+                    <li><span class="font-semibold">Stay Updated:</span> Receive notifications for
+                        opportunities and updates.</li>
+                </ul>
+            </div>
+
+            <p class="text-sm mt-12 text-gray-800">Already have an account? <a href="{% url 'login' %}"
+                    class="text-darkgreen font-semibold hover:underline ml-1">Log in here</a></p>
+        </div>
+
+        {% block form %}
+        <form method="POST" enctype="multipart/form-data" class="flex flex-col max-w-full md:ml-auto w-full gap-y-4">
+            {% csrf_token %}
+            <h3 class="text-gray-800 text-3xl font-extrabold mb-8">
+                Sign up
+            </h3>
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li class="error-message">{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            <div class="flex flex-x-1 gap-x-1">
+                <!-- Username -->
+                <div class="flex-1">
+                    <label for="username" class="form-label">Username<span
+                            class="text-[#e24456] text-lg">*</span></label>
+                    <input type="text" id="username" name="username"
+                        class="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2  border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-green"
+                        placeholder="Username" required />
+                </div>
+
+                <!-- Email -->
+                <div class="flex-1">
+                    <label for="email" class="form-label">Email<span class="text-[#e24456] text-lg">*</span></label>
+                    <input type="email" id="email" name="email"
+                        class="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2  border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-green"
+                        placeholder="Email address" required />
+                </div>
+            </div>
+
+            <!-- Role Selection -->
+            <div class="flex-1">
+                <label for="role" class="form-label">Role<span class="text-[#e24456] text-lg">*</span></label>
+                <select id="role" name="role"
+                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-green rounded-lg"
+                    required>
+                    <option value="CA">Candidate</option>
+                    <option value="RE">Recruiter</option>
+                </select>
+            </div>
+
+            <!-- Profile Image -->
+            <div class="flex items-center justify-center w-full">
+                <label for="profile_img"
+                    class="flex flex-col items-center justify-center w-full h-64 border-[1px] border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                        <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                        </svg>
+                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                            <span class="font-semibold">Click to upload profile image</span>
+                        </p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                            SVG, PNG, JPG or GIF
+                        </p>
+                    </div>
+                    <input type="file" id="profile_img" name="profile_img" class="hidden" />
+                </label>
+            </div>
+
+            <div class="flex flex-x-1 gap-x-1">
+                <!-- Password -->
+                <div class="flex-1 relative">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" id="password" name="password" class="txt-password" placeholder="Password"
+                        required />
+                    <p class="toggle-password">Show</p>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="flex-1 relative">
+                    <label for="confirmPassword" class="form-label">Confirm Password:</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" class="txt-password"
+                        placeholder="Confirm Password" required />
+                    <button type="button" class="toggle-password" aria-label="Toggle Password Visibility">
+                        Show
+                    </button>
+                </div>
+            </div>
+
+            <!-- Register Button -->
+            <button type="submit" class="btn-green">
+                Register
+            </button>
+        </form>
+        {% endblock form %}
+    </div>
+</div>

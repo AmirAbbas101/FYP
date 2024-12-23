@@ -1,5 +1,5 @@
-# from django.contrib import admin
-# from .models import Candidate, User
+from django.contrib import admin
+from .models import Candidate, User
 
 
 # @admin.register(User)
@@ -19,8 +19,8 @@
 #         "password",
 #     ]
 
-
-# admin.site.register(Candidate)
+admin.site.register(User)
+admin.site.register(Candidate)
 # @admin.register(Candidate)
 # class CandidateAdmin(admin.ModelAdmin):
 #     list_display = [

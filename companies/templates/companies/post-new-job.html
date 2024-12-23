@@ -1,0 +1,12 @@
+{% extends 'companies/base.html' %}
+{% load static %}
+
+{% block title %}
+Dashboard
+{% endblock title %}
+
+{% block main %}
+<section class="flex flex-col gap-y-6 p-6">
+    {% include 'jobs/post-job-form.html' %}
+</section>
+{% endblock main %}

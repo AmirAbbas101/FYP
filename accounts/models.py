@@ -2,13 +2,16 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from accounts.manager import CustomUserManager
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils import timezone
+import uuid
+from django.utils.timezone import now, timedelta
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
+    objects = CustomUserManager()
     user_id = models.BigAutoField(primary_key=True)
-    user_name = models.CharField(max_length=50, unique=True, verbose_name=_("Username"))
+    username = models.CharField(max_length=50, unique=True, verbose_name=_("Username"))
     email = models.EmailField(unique=True, verbose_name=_("Email Address"))
     password = models.CharField(max_length=255, verbose_name=_("Password"))
     role = models.CharField(
@@ -18,24 +21,23 @@ class User(AbstractBaseUser):
         verbose_name=_("Role"),
     )
     profile_img = models.ImageField(
-        default="profile_images/default.png",
-        upload_to="profile_images",
-        blank=True,
-        null=True,
-        verbose_name=_("Profile Image"),
+        default="profile_images/default.png", upload_to="profile_images"
     )
+
     date_joined = models.DateTimeField(auto_now_add=True, verbose_name=_("Date Joined"))
     last_login = models.DateTimeField(
         null=True, blank=True, verbose_name=_("Last Login")
     )
     is_active = models.BooleanField(default=True, verbose_name=_("Active"))
     is_verified = models.BooleanField(default=False, verbose_name=_("Verified"))
+    date_verified = models.DateTimeField(
+        null=True, blank=True, verbose_name=_("Date Verified")
+    )
     is_staff = models.BooleanField(default=False, verbose_name=_("Verified"))
     is_superuser = models.BooleanField(default=False, verbose_name=_("Verified"))
 
-    objects = CustomUserManager()
-    USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["user_name"]
+    USERNAME_FIELD = "username"
+    REQUIRED_FIELDS = ["email"]
 
     class Meta:
         ordering = ["-date_joined"]
@@ -43,7 +45,7 @@ class User(AbstractBaseUser):
         verbose_name_plural = _("Users")
 
     def __str__(self):
-        return self.user_name
+        return self.username
 
     def set_last_login(self):
         """
@@ -58,6 +60,32 @@ class User(AbstractBaseUser):
         """
         self.is_verified = True
         self.save()
+
+    def has_perm(self, perm, obj=None):
+        """
+        Does the user have a specific permission?
+        """
+        return self.is_superuser or self.is_staff
+
+    def has_module_perms(self, app_label):
+        """
+        Does the user have permissions to view the app `app_label`?
+        """
+        return self.is_superuser or self.is_staff
+
+
+class PasswordReset(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    reset_id = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
+    created_when = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def is_expired(self):
+        expiration_time = self.created_when + timedelta(minutes=10)
+        return now() > expiration_time
+
+    def __str__(self):
+        return f"Password reset for {self.user.email}"
 
 
 class Candidate(models.Model):

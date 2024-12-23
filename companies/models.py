@@ -4,8 +4,8 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 
 
-class Employer(models.Model):
-    employer_id = models.BigAutoField(primary_key=True)
+class Company(models.Model):
+    company_id = models.BigAutoField(primary_key=True)
     user = models.OneToOneField(
         get_user_model(),
         on_delete=models.CASCADE,

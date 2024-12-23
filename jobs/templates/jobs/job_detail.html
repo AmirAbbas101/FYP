@@ -1,0 +1,127 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title %}
+{{ job.job_title }}
+{% endblock title %}
+{% block content %}
+<div class="px-6 lg:px-[128px] py-8">
+    <div class="block m-5 transition">
+        <div
+            class="grid max-w-screen-md grid-cols-12 gap-6 overflow-hidden rounded-lg border py-8 px-6 text-gray-700 shadow sm:mx-auto">
+
+            <!-- Company Logo -->
+            <div class="col-span-1 flex justify-center sm:justify-start">
+                <div class="w-16 h-16 hover:shadow-lg transition duration-300 ease-in-out">
+                    <img src="{{ job.company.company_logo.url }}" alt="{{ job.company.company_name }}" />
+                </div>
+            </div>
+
+            <!-- Job Details -->
+            <div class="col-span-11 flex flex-col text-left relative">
+                <!-- Company Name -->
+                <h3 class="text-sm text-gray-600">{{ job.company.company_name }}</h3>
+
+                <!-- Job Title -->
+                <h2 class="mb-4 text-2xl font-bold text-gray-900 sm:text-3xl">
+                    {{ job.job_title }}
+                </h2>
+                <h3 class="text-sm text-gray-600">{{ job.location }}</h3>
+
+                <!-- Job Description -->
+                <h2 class="mb-4 text-xl font-semibold text-gray-900 sm:text-2xl">Job Description</h2>
+                <p class="mb-4 text-sm text-gray-600">
+                    {{ job.job_description }}
+                </p>
+
+                <!-- Required Skills -->
+                <h2 class="mb-4 text-xl font-semibold text-gray-900 sm:text-2xl">Required Skills</h2>
+                <p class="mb-4 text-sm text-gray-600">
+                    {{ job.skills_required }}
+                </p>
+
+                <!-- Responsibilities -->
+                <h2 class="mb-4 text-xl font-semibold text-gray-900">Responsibilities</h2>
+                <p class="mb-4 text-sm text-gray-600">
+                    {{ job.responsibilities }}
+                </p>
+
+                <!-- Job Meta Information -->
+                <div class="flex flex-wrap items-center gap-6 text-sm font-medium text-gray-500">
+                    <!-- Experience -->
+                    <div class="flex items-center">
+                        <span>Experience:</span>
+                        <span class="ml-2 rounded-full bg-green-100 px-3 py-1 text-green-900">
+                            {{ job.experience_level }}
+                        </span>
+                    </div>
+
+                    <!-- Job Type -->
+                    <div class="flex items-center">
+                        <span>Job Type:</span>
+                        <span class="ml-2 rounded-full bg-green-100 px-3 py-1 text-green-900">
+                            {{ job.job_type }}
+                        </span>
+                    </div>
+
+                    <!-- Salary -->
+                    <div class="flex items-center">
+                        <span>Salary:</span>
+                        <span class="ml-2 rounded-full bg-blue-100 px-3 py-1 text-blue-900">
+                            {{ job.salary_range }}
+                        </span>
+                    </div>
+
+                    <!-- Date Posted -->
+                    <div class="flex items-center">
+                        <span>Date Posted:</span>
+                        <span class="ml-2 rounded-full bg-blue-100 px-3 py-1 text-blue-900">
+                            {{ job.date_posted }}
+                        </span>
+                    </div>
+
+                    <!-- Application Deadline -->
+                    <div class="flex items-center">
+                        <span>Deadline:</span>
+                        <span class="ml-2 rounded-full bg-red-100 px-3 py-1 text-red-900">
+                            {{ job.application_deadline }}
+                        </span>
+                    </div>
+
+                    <!-- Positions Available -->
+                    <div class="flex items-center">
+                        <span>Positions Available:</span>
+                        <span class="ml-2 rounded-full bg-yellow-100 px-3 py-1 text-yellow-900">
+                            {{ job.positions }}
+                        </span>
+                    </div>
+
+                    <!-- Degree Required -->
+                    <div class="flex items-center">
+                        <span>Degree Required:</span>
+                        <span class="ml-2 rounded-full bg-purple-100 px-3 py-1 text-purple-900">
+                            {{ job.degree_required }}
+                        </span>
+                    </div>
+
+                    <!-- Job Category -->
+                    <div class="flex items-center">
+                        <span>Job Category:</span>
+                        <span class="ml-2 rounded-full bg-teal-100 px-3 py-1 text-teal-900">
+                            {{ job.job_category }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Apply Button -->
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit"
+                        class="absolute right-5 bottom-4 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md transition-all hover:bg-blue-700">
+                        Apply Now
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

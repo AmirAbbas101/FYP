@@ -43,11 +43,10 @@
   {% if not user.is_authenticated %}
   <!-- Action Buttons -->
   <div class="mt-10 flex flex-wrap justify-center gap-4">
-    <a href="{% url 'register' %}"
-      class="px-6 py-3 bg-green text-white font-semibold rounded-md hover:bg-darkgreen focus:outline-none">Get
+    <a href="{% url 'register' %}" class="bg-green text-primary hover:bg-darkgreen btn-hero-section">Get
       Started</a>
     <a href="{% url 'about' %}"
-      class="px-6 py-3 text-slate-200 border border-slate-200 font-semibold rounded-md hover:bg-slate-200 hover:text-gray-900 focus:outline-none">Learn
+      class=" text-primary border border-primary hover:bg-primary hover:text-secondary btn-hero-section">Learn
       More</a>
   </div>
   {% endif %}
@@ -243,441 +242,168 @@
 
 <!-- Featured jobs -->
 <section class="sm:py-16 px-4 bg-gray-100 md:py-10 min-w-full lg:px-32">
-  <div>
+  <div class="flex justify-between">
+    <h3 class="text-3xl font-bold text-gray-700">Featured <span class="text-[#26ae61]">jobs</span></h3>
+    <a href="{% url 'browse-jobs' %}" class="text-[#26ae61] flex align-middle justify-center">Show all jobs <i
+        class="ri-arrow-right-line text-xl text-[#26ae61]"></i></a>
+  </div>
 
-    <div>
-      <div class="flex justify-between">
-        <h3 class="text-3xl font-bold text-gray-700">Featured <span class="text-[#26ae61]">jobs</span></h3>
-        <a href="" class="text-[#26ae61] flex align-middle justify-center">Show all jobs <i
-            class="ri-arrow-right-line text-xl text-[#26ae61]"></i></a>
+  <div class="grid items-center grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-5 mt-12 lg:grid-cols-2">
+
+
+    {% for featured_job in featured_jobs %}
+    <!-- Job -->
+    <div class="m-5">
+      <div
+        class="group mx-2 mt-10 grid max-w-screen-md grid-cols-12 space-x-8 overflow-hidden rounded-lg border py-8 text-gray-700 shadow-lg transition-all hover:shadow-2xl sm:mx-auto">
+
+        <!-- Company Logo Section -->
+        <a href="#"
+          class="order-2 col-span-1 mt-4 -ml-14 text-left text-gray-600 hover:text-gray-700 sm:-order-1 sm:ml-4">
+          <div
+            class="group relative w-16 overflow-hidden rounded-lg border p-1 shadow-md transition-all hover:shadow-xl">
+            <img src="{{ featured_job.company.company_logo.url }}" alt="{{featured_job.company.company_name }} Logo"
+              class="h-full w-full object-cover" />
+          </div>
+        </a>
+
+        <!-- Job Details Section -->
+        <div class="col-span-11 flex flex-col pr-8 text-left sm:pl-4">
+          <!-- Company Name -->
+          <h3 class="text-sm text-gray-600 font-medium">{{ featured_job.company.company_name }}</h3>
+
+          <!-- Job Title -->
+          <a href="{% url 'job-detail' featured_job.job_id featured_job.job_title|slugify %}"
+            class="mb-3 overflow-hidden pr-7 text-lg font-semibold sm:text-xl text-gray-900 hover:text-gray-800">
+            {{ featured_job.job_title }}
+          </a>
+
+          <!-- Job Description -->
+          <p class="overflow-hidden pr-7 text-sm text-gray-600 line-clamp-3">
+            {{ featured_job.job_description }}
+          </p>
+
+          <!-- Job Meta Information (Experience, Salary) -->
+          <div
+            class="mt-5 flex flex-col space-y-3 text-sm font-medium text-gray-500 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-2">
+            <div class="flex items-center">
+              <!-- <span class="font-semibold text-gray-800">Experience:</span> -->
+              <span class="ml-2 mr-3 rounded-full px-2 py-0.5 text-green-600 bg-green-100">
+                {{ featured_job.experience_level }}
+              </span>
+            </div>
+            <div class="flex items-center">
+              <!-- <span class="font-semibold text-gray-800">Job type:</span> -->
+              <span class="ml-2 mr-3 rounded-full px-2 py-0.5 text-orange-600 bg-orange-100">
+                {{ featured_job.job_type }}
+              </span>
+            </div>
+            <div class="flex items-center">
+              <!-- <span class="font-semibold text-gray-800">Salary:</span> -->
+              <span class="ml-2 mr-3 rounded-full px-2 py-0.5 text-indigo-600 bg-indigo-100">
+                {{ featured_job.salary_range }}
+              </span>
+            </div>
+          </div>
+
+          <!-- View Details CTA Button -->
+          <div class="mt-4">
+            <a href="{% url 'job-detail' featured_job.job_id featured_job.job_title|slugify %}"
+              class="inline-block mt-4 w-full py-2 px-4 text-center bg-darkgreen text-white font-semibold rounded-md shadow-md transition-all hover:bg-green focus:outline-none">
+              View Details
+            </a>
+          </div>
+        </div>
       </div>
+    </div>
+    {% endfor %}
 
-      <div class="grid items-center grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-5 mt-12 lg:grid-cols-4">
 
-        <!-- Job -->
-        <a href="">
-          <div class="bg-white shadow-sm border-[1px] border-gray-300 mx-auto px-6 py-6 flex flex-col gap-y-3 hover:shadow-lg">
-            <div class="flex items-center justify-between">
-              <!-- logo -->
-              <div class="w-16 h-16">
-                <img src="{% static 'imgs/intel-logo.png' %}" alt="company logo" />
-              </div>
-              <div
-                class="flex items-center justify-center px-4 py-2 text-[#56cdad] border-collapse border-[1px] border-gray-300">
-                Full Time</div>
-            </div>
-            <div>
-              <h3 class="text-xl font-medium text-gray-700">Job Title</h3>
-              <p class="text-gray-500">Company, Location</p>
-            </div>
-            <p class="text-gray-500">Job Description Lorem ipsum dolor, sit amet consectetur...</p>
-            <div class="flex gap-2 items-center">
-              <p class="px-4 py-2 text-[#eb8533] bg-[#eb8533] bg-opacity-10 rounded-full">
-                Marketing
-              </p>
-              <p class="px-4 py-2 text-[#56cdad] bg-[#56cdad] bg-opacity-10 rounded-full">Design</p>
-            </div>
-          </div>
-        </a>
-
-        <!-- Job -->
-        <a href="">
-          <div class="bg-white shadow-sm border-[1px] border-gray-300 mx-auto px-6 py-6 flex flex-col gap-y-3 hover:shadow-lg">
-            <div class="flex items-center justify-between">
-              <!-- logo -->
-              <div class="w-16 h-16">
-                <img src="{% static 'imgs/intel-logo.png' %}" alt="company logo" />
-              </div>
-              <div
-                class="flex items-center justify-center px-4 py-2 text-[#56cdad] border-collapse border-[1px] border-gray-300">
-                Full Time</div>
-            </div>
-            <div>
-              <h3 class="text-xl font-medium text-gray-700">Job Title</h3>
-              <p class="text-gray-500">Company, Location</p>
-            </div>
-            <p class="text-gray-500">Job Description Lorem ipsum dolor, sit amet consectetur...</p>
-            <div class="flex gap-2 items-center">
-              <p class="px-4 py-2 text-[#eb8533] bg-[#eb8533] bg-opacity-10 rounded-full">
-                Marketing
-              </p>
-              <p class="px-4 py-2 text-[#56cdad] bg-[#56cdad] bg-opacity-10 rounded-full">Design</p>
-            </div>
-          </div>
-        </a>
-
-        <!-- Job -->
-        <a href="">
-          <div class="bg-white shadow-sm border-[1px] border-gray-300 mx-auto px-6 py-6 flex flex-col gap-y-3 hover:shadow-lg">
-            <div class="flex items-center justify-between">
-              <!-- logo -->
-              <div class="w-16 h-16">
-                <img src="{% static 'imgs/intel-logo.png' %}" alt="company logo" />
-              </div>
-              <div
-                class="flex items-center justify-center px-4 py-2 text-[#56cdad] border-collapse border-[1px] border-gray-300">
-                Full Time</div>
-            </div>
-            <div>
-              <h3 class="text-xl font-medium text-gray-700">Job Title</h3>
-              <p class="text-gray-500">Company, Location</p>
-            </div>
-            <p class="text-gray-500">Job Description Lorem ipsum dolor, sit amet consectetur...</p>
-            <div class="flex justify-between items-center">
-              <p class="px-4 py-2 text-[#eb8533] bg-[#eb8533] bg-opacity-10 rounded-full">
-                Marketing
-              </p>
-              <p class="px-4 py-2 text-[#56cdad] bg-[#56cdad] bg-opacity-10 rounded-full">Design</p>
-            </div>
-          </div>
-        </a>
-
-        <!-- Job -->
-        <a href="">
-          <div class="bg-white shadow-sm border-[1px] border-gray-300 mx-auto px-6 py-6 flex flex-col gap-y-3 hover:shadow-lg">
-            <div class="flex items-center justify-between">
-              <!-- logo -->
-              <div class="w-16 h-16">
-                <img src="{% static 'imgs/intel-logo.png' %}" alt="company logo" />
-              </div>
-              <div
-                class="flex items-center justify-center px-4 py-2 text-[#56cdad] border-collapse border-[1px] border-gray-300">
-                Full Time</div>
-            </div>
-            <div>
-              <h3 class="text-xl font-medium text-gray-700">Job Title</h3>
-              <p class="text-gray-500">Company, Location</p>
-            </div>
-            <p class="text-gray-500">Job Description Lorem ipsum dolor, sit amet consectetur...</p>
-            <div class="flex justify-between items-center">
-              <p class="px-4 py-2 text-[#eb8533] bg-[#eb8533] bg-opacity-10 rounded-full">
-                Marketing
-              </p>
-              <p class="px-4 py-2 text-[#56cdad] bg-[#56cdad] bg-opacity-10 rounded-full">Design</p>
-            </div>
-          </div>
-        </a>
-
-        <!-- Job -->
-        <a href="">
-          <div
-            class="bg-white shadow-sm border-[1px] border-gray-300 mx-auto px-6 py-6 flex flex-col gap-y-3 hover:shadow-lg duration-500 ease-in-out">
-            <div class="flex items-center justify-between">
-              <!-- logo -->
-              <div class="w-16 h-16">
-                <img src="{% static 'imgs/intel-logo.png' %}" alt="company logo" />
-              </div>
-              <div
-                class="flex items-center justify-center px-4 py-2 text-[#56cdad] border-collapse border-[1px] border-gray-300">
-                Full Time</div>
-            </div>
-            <div>
-              <h3 class="text-xl font-medium text-gray-700">Job Title</h3>
-              <p class="text-gray-500">Company, Location</p>
-            </div>
-            <p class="text-gray-500">Job Description Lorem ipsum dolor, sit amet consectetur...</p>
-            <div class="flex justify-between items-center">
-              <p class="px-4 py-2 text-[#eb8533] bg-[#eb8533] bg-opacity-10 rounded-full">
-                Marketing
-              </p>
-              <p class="px-4 py-2 text-[#56cdad] bg-[#56cdad] bg-opacity-10 rounded-full">Design</p>
-            </div>
-          </div>
-        </a>
-
-        <!-- Job -->
-        <a href="">
-          <div
-            class="bg-white shadow-sm border-[1px] border-gray-300 mx-auto px-6 py-6 flex flex-col gap-y-3 hover:shadow-lg duration-500 ease-in-out">
-            <div class="flex items-center justify-between">
-              <!-- logo -->
-              <div class="w-16 h-16">
-                <img src="{% static 'imgs/intel-logo.png' %}" alt="company logo" />
-              </div>
-              <div
-                class="flex items-center justify-center px-4 py-2 text-[#56cdad] border-collapse border-[1px] border-gray-300">
-                Full Time</div>
-            </div>
-            <div>
-              <h3 class="text-xl font-medium text-gray-700">Job Title</h3>
-              <p class="text-gray-500">Company, Location</p>
-            </div>
-            <p class="text-gray-500">Job Description Lorem ipsum dolor, sit amet consectetur...</p>
-            <div class="flex justify-between items-center">
-              <p class="px-4 py-2 text-[#eb8533] bg-[#eb8533] bg-opacity-10 rounded-full">
-                Marketing
-              </p>
-              <p class="px-4 py-2 text-[#56cdad] bg-[#56cdad] bg-opacity-10 rounded-full">Design</p>
-            </div>
-          </div>
-        </a>
-
-        <!-- Job -->
-        <a href="">
-          <div
-            class="bg-white shadow-sm border-[1px] border-gray-300 mx-auto px-6 py-6 flex flex-col gap-y-3 hover:shadow-lg duration-500 ease-in-out">
-            <div class="flex items-center justify-between">
-              <!-- logo -->
-              <div class="w-16 h-16">
-                <img src="{% static 'imgs/intel-logo.png' %}" alt="company logo" />
-              </div>
-              <div
-                class="flex items-center justify-center px-4 py-2 text-[#56cdad] border-collapse border-[1px] border-gray-300">
-                Full Time</div>
-            </div>
-            <div>
-              <h3 class="text-xl font-medium text-gray-700">Job Title</h3>
-              <p class="text-gray-500">Company, Location</p>
-            </div>
-            <p class="text-gray-500">Job Description Lorem ipsum dolor, sit amet consectetur...</p>
-            <div class="flex justify-between items-center">
-              <p class="px-4 py-2 text-[#eb8533] bg-[#eb8533] bg-opacity-10 rounded-full">
-                Marketing
-              </p>
-              <p class="px-4 py-2 text-[#56cdad] bg-[#56cdad] bg-opacity-10 rounded-full">Design</p>
-            </div>
-          </div>
-        </a>
-
-        <!-- Job -->
-        <a href="">
-          <div
-            class="bg-white shadow-sm border-[1px] border-gray-300 mx-auto px-6 py-6 flex flex-col gap-y-3 hover:shadow-lg duration-500 ease-in-out">
-            <div class="flex items-center justify-between">
-              <!-- logo -->
-              <div class="w-16 h-16">
-                <img src="{% static 'imgs/intel-logo.png' %}" alt="company logo" />
-              </div>
-              <div
-                class="flex items-center justify-center px-4 py-2 text-[#56cdad] border-collapse border-[1px] border-gray-300">
-                Full Time</div>
-            </div>
-            <div>
-              <h3 class="text-xl font-medium text-gray-700">Job Title</h3>
-              <p class="text-gray-500">Company, Location</p>
-            </div>
-            <p class="text-gray-500">Job Description Lorem ipsum dolor, sit amet consectetur...</p>
-            <div class="flex justify-between items-center">
-              <p class="px-4 py-2 text-[#eb8533] bg-[#eb8533] bg-opacity-10 rounded-full">
-                Marketing
-              </p>
-              <p class="px-4 py-2 text-[#56cdad] bg-[#56cdad] bg-opacity-10 rounded-full">Design</p>
-            </div>
-          </div>
-        </a>
-
-      </div>
+  </div>
 </section>
 
 <!-- Latest Jobs -->
 <section class="sm:py-16 px-4 bg-white md:py-10 min-w-full lg:px-32 text-gray-500">
-  <div>
-    <div class="flex justify-between">
-      <h3 class="text-3xl font-bold text-gray-700">Latest <span class="text-[#26ae61]">jobs</span></h3>
-      <a href="" class="text-[#26ae61] flex align-middle justify-center">Show all jobs <i
-          class="ri-arrow-right-line text-xl text-[#26ae61]"></i></a>
-    </div>
-    <div>
-      <div class="grid items-center grid-cols-1 gap-x-4 gap-y-5 mt-12 lg:grid-cols-2">
 
-        <!-- Job -->
-        <a href="">
+  <div class="flex justify-between">
+    <h3 class="text-3xl font-bold text-gray-700">Latest <span class="text-[#26ae61]">jobs</span></h3>
+    <a href="{% url 'browse-jobs' %}" class="text-[#26ae61] flex align-middle justify-center">Show all jobs <i
+        class="ri-arrow-right-line text-xl text-[#26ae61]"></i></a>
+  </div>
+  <div class="grid items-center grid-cols-1 gap-x-4 gap-y-5 mt-12 lg:grid-cols-2">
+
+    {% for job in jobs %}
+
+    {% if job not in featured_jobs %}
+    <!-- Job Card -->
+    <div class="m-5">
+      <div
+        class="group mx-2 mt-10 grid max-w-screen-md grid-cols-12 space-x-8 overflow-hidden rounded-lg border py-8 text-gray-700 shadow-lg transition-all hover:shadow-2xl sm:mx-auto">
+
+        <!-- Company Logo Section -->
+        <a href="#"
+          class="order-2 col-span-1 mt-4 -ml-14 text-left text-gray-600 hover:text-gray-700 sm:-order-1 sm:ml-4">
           <div
-            class="shadow-sm border-[1px] bg-white mx-auto px-6 py-6 flex gap-10 hover:shadow-lg duration-500 ease-in-out">
-            <!-- logo -->
-            <div class="w-16 h-16">
-              <img src="{% static 'imgs/intel-logo.png' %}" alt="company logo" />
-            </div>
-            <div class="flex flex-col gap-4">
-              <div>
-                <h3 class="text-xl font-medium text-gray-700">Job Title</h3>
-                <p class="text-gray-500">Company, Location</p>
-              </div>
-              <div class="flex gap-4 items-center">
-                <p class="px-4 py-2 text-[#eb8533] bg-[#eb8533] bg-opacity-10 rounded-full">
-                  Marketing
-                </p>
-                <p class="px-4 py-2 text-[#56cdad] bg-[#56cdad] bg-opacity-10 rounded-full">Design</p>
-              </div>
-            </div>
+            class="group relative w-16 overflow-hidden rounded-lg border p-1 shadow-md transition-all hover:shadow-xl">
+            <img src="{{ job.company.company_logo.url }}" alt="{{ job.company.company_name }} Logo"
+              class="h-full w-full object-cover" />
           </div>
         </a>
 
-        <!-- Job -->
-        <a href="">
-          <div
-            class="shadow-sm border-[1px] bg-white mx-auto px-6 py-6 flex gap-10 hover:shadow-lg duration-500 ease-in-out">
-            <!-- logo -->
-            <div class="w-16 h-16">
-              <img src="{% static 'imgs/intel-logo.png' %}" alt="company logo" />
-            </div>
-            <div class="flex flex-col gap-4">
-              <div>
-                <h3 class="text-xl font-medium text-gray-700">Job Title</h3>
-                <p class="text-gray-500">Company, Location</p>
-              </div>
-              <div class="flex gap-4 items-center">
-                <p class="px-4 py-2 text-[#eb8533] bg-[#eb8533] bg-opacity-10 rounded-full">
-                  Marketing
-                </p>
-                <p class="px-4 py-2 text-[#56cdad] bg-[#56cdad] bg-opacity-10 rounded-full">Design</p>
-              </div>
-            </div>
-          </div>
-        </a>
+        <!-- Job Details Section -->
+        <div class="col-span-11 flex flex-col pr-8 text-left sm:pl-4">
+          <!-- Company Name -->
+          <h3 class="text-sm text-gray-600 font-medium">{{ job.company.company_name }}</h3>
 
-        <!-- Job -->
-        <a href="">
-          <div
-            class="shadow-sm border-[1px] bg-white mx-auto px-6 py-6 flex gap-10 hover:shadow-lg duration-500 ease-in-out">
-            <!-- logo -->
-            <div class="w-16 h-16">
-              <img src="{% static 'imgs/intel-logo.png' %}" alt="company logo" />
-            </div>
-            <div class="flex flex-col gap-4">
-              <div>
-                <h3 class="text-xl font-medium text-gray-700">Job Title</h3>
-                <p class="text-gray-500">Company, Location</p>
-              </div>
-              <div class="flex gap-4 items-center">
-                <p class="px-4 py-2 text-[#eb8533] bg-[#eb8533] bg-opacity-10 rounded-full">
-                  Marketing
-                </p>
-                <p class="px-4 py-2 text-[#56cdad] bg-[#56cdad] bg-opacity-10 rounded-full">Design</p>
-              </div>
-            </div>
-          </div>
-        </a>
+          <!-- Job Title -->
+          <a href="{% url 'job-detail' job.job_id job.job_title|slugify %}"
+            class="mb-3 overflow-hidden pr-7 text-lg font-semibold sm:text-xl text-gray-900 hover:text-gray-800">
+            {{ job.job_title }}
+          </a>
 
-        <!-- Job -->
-        <a href="">
-          <div
-            class="shadow-sm border-[1px] bg-white mx-auto px-6 py-6 flex gap-10 hover:shadow-lg duration-500 ease-in-out">
-            <!-- logo -->
-            <div class="w-16 h-16">
-              <img src="{% static 'imgs/intel-logo.png' %}" alt="company logo" />
-            </div>
-            <div class="flex flex-col gap-4">
-              <div>
-                <h3 class="text-xl font-medium text-gray-700">Job Title</h3>
-                <p class="text-gray-500">Company, Location</p>
-              </div>
-              <div class="flex gap-4 items-center">
-                <p class="px-4 py-2 text-[#eb8533] bg-[#eb8533] bg-opacity-10 rounded-full">
-                  Marketing
-                </p>
-                <p class="px-4 py-2 text-[#56cdad] bg-[#56cdad] bg-opacity-10 rounded-full">Design</p>
-              </div>
-            </div>
-          </div>
-        </a>
+          <!-- Job Description -->
+          <p class="overflow-hidden pr-7 text-sm text-gray-600 line-clamp-3">
+            {{ job.job_description }}
+          </p>
 
-        <!-- Job -->
-        <a href="">
+          <!-- Job Meta Information (Experience, Salary) -->
           <div
-            class="shadow-sm border-[1px] bg-white  mx-auto px-6 py-6 flex gap-10 hover:shadow-lg duration-500 ease-in-out">
-            <!-- logo -->
-            <div class="w-16 h-16">
-              <img src="{% static 'imgs/intel-logo.png' %}" alt="company logo" />
+            class="mt-5 flex flex-col space-y-3 text-sm font-medium text-gray-500 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-2">
+            <div class="flex items-center">
+              <!-- <span class="font-semibold text-gray-800">Experience:</span> -->
+              <span class="ml-2 mr-3 rounded-full px-2 py-0.5 text-green-600 bg-green-100">
+                {{ job.experience_level }}
+              </span>
             </div>
-            <div class="flex flex-col gap-4">
-              <div>
-                <h3 class="text-xl font-medium text-gray-700">Job Title</h3>
-                <p class="text-gray-500">Company, Location</p>
-              </div>
-              <div class="flex gap-4 items-center">
-                <p class="px-4 py-2 text-[#eb8533] bg-[#eb8533] bg-opacity-10 rounded-full">
-                  Marketing
-                </p>
-                <p class="px-4 py-2 text-[#56cdad] bg-[#56cdad] bg-opacity-10 rounded-full">Design</p>
-              </div>
+            <div class="flex items-center">
+              <!-- <span class="font-semibold text-gray-800">Job type:</span> -->
+              <span class="ml-2 mr-3 rounded-full px-2 py-0.5 text-orange-600 bg-orange-100">
+                {{ job.job_type }}
+              </span>
+            </div>
+            <div class="flex items-center">
+              <!-- <span class="font-semibold text-gray-800">Salary:</span> -->
+              <span class="ml-2 mr-3 rounded-full px-2 py-0.5 text-indigo-600 bg-indigo-100">
+                {{ job.salary_range }}
+              </span>
             </div>
           </div>
-        </a>
 
-        <!-- Job -->
-        <a href="">
-          <div
-            class="shadow-sm border-[1px] bg-white mx-auto px-6 py-6 flex gap-10 hover:shadow-lg duration-500 ease-in-out">
-            <!-- logo -->
-            <div class="w-16 h-16">
-              <img src="{% static 'imgs/intel-logo.png' %}" alt="company logo" />
-            </div>
-            <div class="flex flex-col gap-4">
-              <div>
-                <h3 class="text-xl font-medium text-gray-700">Job Title</h3>
-                <p class="text-gray-500">Company, Location</p>
-              </div>
-              <div class="flex gap-4 items-center">
-                <p class="px-4 py-2 text-[#eb8533] bg-[#eb8533] bg-opacity-10 rounded-full">
-                  Marketing
-                </p>
-                <p class="px-4 py-2 text-[#56cdad] bg-[#56cdad] bg-opacity-10 rounded-full">Design</p>
-              </div>
-            </div>
+          <!-- View Details CTA Button -->
+          <div class="mt-4">
+            <a href="{% url 'job-detail' job.job_id job.job_title|slugify %}"
+              class="inline-block mt-4 w-full py-2 px-4 text-center bg-darkgreen text-white font-semibold rounded-md shadow-md transition-all hover:bg-green focus:outline-none">
+              View Details
+            </a>
           </div>
-        </a>
-
-        <!-- Job -->
-        <a href="">
-          <div
-            class="shadow-sm border-[1px] bg-white mx-auto px-6 py-6 flex gap-10 hover:shadow-lg duration-500 ease-in-out">
-            <!-- logo -->
-            <div class="w-16 h-16">
-              <img src="{% static 'imgs/intel-logo.png' %}" alt="company logo" />
-            </div>
-            <div class="flex flex-col gap-4">
-              <div>
-                <h3 class="text-xl font-medium text-gray-700">Job Title</h3>
-                <p class="text-gray-500">Company, Location</p>
-              </div>
-              <div class="flex gap-4 items-center">
-                <p class="px-4 py-2 text-[#eb8533] bg-[#eb8533] bg-opacity-10 rounded-full">
-                  Marketing
-                </p>
-                <p class="px-4 py-2 text-[#56cdad] bg-[#56cdad] bg-opacity-10 rounded-full">Design</p>
-              </div>
-            </div>
-          </div>
-        </a>
-
-        <!-- Job -->
-        <a href="">
-          <div
-            class="shadow-sm border-[1px] bg-white mx-auto px-6 py-6 flex gap-10 hover:shadow-lg duration-500 ease-in-out">
-            <!-- logo -->
-            <div class="w-16 h-16">
-              <img src="{% static 'imgs/intel-logo.png' %}" alt="company logo" />
-            </div>
-            <div class="flex flex-col gap-4">
-              <div>
-                <h3 class="text-xl font-medium text-gray-700">Job Title</h3>
-                <p class="text-gray-500">Company, Location</p>
-              </div>
-              <div class="flex gap-4 items-center">
-                <p class="px-4 py-2 text-[#eb8533] bg-[#eb8533] bg-opacity-10 rounded-full">
-                  Marketing
-                </p>
-                <p class="px-4 py-2 text-[#56cdad] bg-[#56cdad] bg-opacity-10 rounded-full">Design</p>
-              </div>
-            </div>
-          </div>
-        </a>
+        </div>
       </div>
-</section>
+    </div>
+    {% endif %}
 
-<!-- News letter section -->
-<section id="newsletter" class="flex flex-wrap justify-between items-center bg-green flex-col py-6">
-  <div class="newstext flex flex-col justify-center items-center">
-    <h4 class="text-white text-3xl font-bold">Sign Up For Newsletters</h4>
-    <p class="text-white text-base font-semibold">
-      Get E-mail updates about our latest shop and
-      <span class="text-[#ffbd27]">special offers.</span>
-    </p>
-  </div>
-  <div class="flex w-[40%] gap-x-1">
-    <input type="text" placeholder="Your email address" class="h-14 px-5 text-base w-full border-[1px] rounded outline-none"/>
-    <button class="bg-white w-24 rounded">Sign Up</button>
+    {% endfor %}
+
   </div>
 </section>
+{% include 'reuseable-components/newsletter.html' %}
 {% endblock content %}

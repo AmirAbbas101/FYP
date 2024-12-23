@@ -1,0 +1,27 @@
+{% extends '_base.html' %}
+{% block title %}Permission Denied{% endblock %}
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block content %}
+
+<div class="bg-gray-100 px-2 text-center">
+    <div class="h-screen flex flex-col justify-center items-center">
+        <h1 class="text-5xl lg:text-8xl font-extrabold text-red-500">Permission Denied</h1>
+        <p class="text-4xl font-medium text-gray-800">Sorry!</p>
+        <p class="text-xl text-gray-800 mt-4">You do not have permission to post a job. Only Recruiter can post a new
+            jop.</p>
+        <a href="{% url 'home' %}"
+            class="text-green border-[1px] border-green hover:bg-green hover:text-primary px-4 py-2 ease-out duration-300">
+            Back to homepage
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+
+{% endblock footer %}

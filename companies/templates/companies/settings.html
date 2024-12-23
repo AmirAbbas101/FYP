@@ -27,16 +27,129 @@ Settings
             Notifications
         </h3>
     </section>
+    <div class="container mx-auto my-10 max-w-screen-md">
+        <h1 class="text-2xl font-semibold text-gray-800 mb-5">Add Company</h1>
+        <form method="post" enctype="multipart/form-data" class="bg-white p-6 rounded-lg shadow-md">
+            {% csrf_token %}
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <!-- Company Name -->
+                <div>
+                    <label for="id_company_name" class="block text-sm font-medium text-gray-700">
+                        Company Name
+                    </label>
+                    <input type="text" name="company_name" id="id_company_name"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        placeholder="Enter company name" required />
+                </div>
 
+                <!-- Company Website -->
+                <div>
+                    <label for="id_company_website" class="block text-sm font-medium text-gray-700">
+                        Company Website
+                    </label>
+                    <input type="url" name="company_website" id="id_company_website"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        placeholder="https://www.company.com" />
+                </div>
 
+                <!-- Company Address -->
+                <div class="sm:col-span-2">
+                    <label for="id_company_address" class="block text-sm font-medium text-gray-700">
+                        Company Address
+                    </label>
+                    <textarea name="company_address" id="id_company_address" rows="3"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        placeholder="Enter full address" required></textarea>
+                </div>
 
-    <!-- My profile Settings Section -->
-    {% include 'userpanel/reuseable-components/my-profile-settings.html' %}
+                <!-- Company Logo -->
+                <div>
+                    <label for="id_company_logo" class="block text-sm font-medium text-gray-700">
+                        Company Logo (Optional)
+                    </label>
+                    <input type="file" name="company_logo" id="id_company_logo"
+                        class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-indigo-50 file:py-2 file:px-4 file:text-sm file:font-semibold file:text-indigo-600 hover:file:bg-indigo-100" />
+                </div>
 
-    <!-- Login Details Settings Section -->
-    {% include 'userpanel/reuseable-components/login-details-settings.html' %}
+                <!-- Contact Person -->
+                <div>
+                    <label for="id_contact_person" class="block text-sm font-medium text-gray-700">
+                        Contact Person
+                    </label>
+                    <input type="text" name="contact_person" id="id_contact_person"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        placeholder="Full name" required />
+                </div>
 
-    <!-- Notifictions Settings Section -->
-    {% include 'userpanel/reuseable-components/notifications-settings.html' %}
+                <!-- Contact Email -->
+                <div>
+                    <label for="id_contact_email" class="block text-sm font-medium text-gray-700">
+                        Contact Email
+                    </label>
+                    <input type="email" name="contact_email" id="id_contact_email"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        placeholder="contact@company.com" required />
+                </div>
+
+                <!-- Contact Phone -->
+                <div>
+                    <label for="id_contact_phone" class="block text-sm font-medium text-gray-700">
+                        Contact Phone (Optional)
+                    </label>
+                    <input type="text" name="contact_phone" id="id_contact_phone"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        placeholder="+1234567890" />
+                </div>
+
+                <!-- Industry -->
+                <div>
+                    <label for="id_industry" class="block text-sm font-medium text-gray-700">
+                        Industry
+                    </label>
+                    <input type="text" name="industry" id="id_industry"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        placeholder="e.g., IT, Healthcare" required />
+                </div>
+
+                <!-- Company Size -->
+                <div>
+                    <label for="id_company_size" class="block text-sm font-medium text-gray-700">
+                        Company Size
+                    </label>
+                    <input type="text" name="company_size" id="id_company_size"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        placeholder="e.g., 1-10, 51-200 employees" required />
+                </div>
+
+                <!-- Description -->
+                <div class="sm:col-span-2">
+                    <label for="id_description" class="block text-sm font-medium text-gray-700">
+                        Description (Optional)
+                    </label>
+                    <textarea name="description" id="id_description" rows="4"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        placeholder="Write about the company"></textarea>
+                </div>
+
+                <!-- Established Year -->
+                <div>
+                    <label for="id_established_year" class="block text-sm font-medium text-gray-700">
+                        Established Year (Optional)
+                    </label>
+                    <input type="number" name="established_year" id="id_established_year"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        placeholder="YYYY" />
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="mt-6">
+                <button type="submit"
+                    class="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
 </main>
 {% endblock main %}

@@ -12,6 +12,11 @@
     @apply font-serif font-medium;
   }
 
+  .hover-option:hover {
+    background-color: #10b981; /* Tailwind's bg-green-500 */
+    color: white; /* Optional for better contrast */
+  }
+
   .h1 {
     @apply text-7xl font-bold;
   }
@@ -44,19 +49,25 @@
 
   /* Buttons */
   .btn {
-    @apply font-semibold rounded-md shadow-md transition;
+    @apply font-semibold bg-darkgreen hover:bg-green rounded-md text-primary shadow-md transition;
   }
 
+  .btn-navbar {
+    @apply px-4 py-2 btn text-sm;
+  }
+  .btn-hero-section {
+    @apply px-6 py-3 font-semibold focus:outline-none transition;
+  }
   .btn-green {
-    @apply btn px-6 py-3 text-primary bg-green hover:bg-darkgreen focus:outline-none;
+    @apply px-6 py-2 focus:outline-none btn;
   }
 
   .btn-apply {
-    @apply btn bg-green text-white px-10 py-3 hover:bg-darkgreen;
+    @apply px-10 py-3 btn;
   }
 
   .submit-button {
-    @apply btn w-[50%] float-left p-3 mt-4 text-primary bg-green hover:bg-darkgreen;
+    @apply w-[50%] float-left p-3 mt-4 btn;
   }
 
   /* Navigation Bar */
@@ -83,6 +94,11 @@
 
   .settings-nav-item {
     @apply text-base font-bold pb-2 cursor-pointer border-b-[4px] hover:text-darkgreen hover:border-darkgreen;
+  }
+
+  /* Toggle Password */
+  .toggle-password {
+    @apply form-label min-w-full flex justify-end cursor-pointer hover:text-gray-950;
   }
 
   /* Sidebar */
@@ -156,8 +172,11 @@
     @apply border-green;
   }
 
+  .txt-password {
+    @apply w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-green;
+  }
   /* Form Labels */
   .form-label {
-    @apply text-gray-700 font-medium;
+    @apply text-gray-700 dark:text-gray-200 text-sm font-medium;
   }
 }

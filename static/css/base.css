@@ -17,3 +17,8 @@ body {
   color: #333; /* Base text color for consistent contrast */
   background-color: #f9f9f9; /* Soft background for a modern look */
 }
+
+select:hover option:hover {
+  background-color: #10b981; /* Tailwind's bg-green-500 */
+  color: white; /* Optional for better contrast */
+}
