@@ -10,15 +10,30 @@ from accounts.decorators import recruiter
 
 from django.http import HttpResponsePermanentRedirect
 from django.utils.text import slugify
+from django.db.models import Q
 
 
 class JobListView(ListView):
     model = Job
     template_name = "jobs/browse-jobs.html"
     context_object_name = "jobs"
+    paginate_by = 5
 
     def get_queryset(self):
-        return Job.all_jobs()
+        queryset = Job.objects.all()
+        title_query = self.request.GET.get("title", "")
+        location_query = self.request.GET.get("location", "")
+
+        if title_query:
+            queryset = queryset.filter(title__icontains=title_query)
+            exact_matches = queryset.filter(title__iexact=title_query)
+            partial_matches = queryset.exclude(id__in=exact_matches.values("id"))
+            # Combine exact matches and partial matches
+            queryset = exact_matches | partial_matches
+        if location_query:
+            queryset = queryset.filter(location__icontains=location_query)
+
+        return queryset
 
 
 # class JobDetailView(DetailView):

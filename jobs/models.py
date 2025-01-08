@@ -5,7 +5,7 @@ from django.utils import timezone
 import datetime
 from companies.models import Company
 
-
+# Create your models here.
 class Job(models.Model):
     JOB_TYPE_CHOICES = [
         ("Full Time", "Full-Time"),

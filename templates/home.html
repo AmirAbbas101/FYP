@@ -251,72 +251,13 @@
   <div class="grid items-center grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-5 mt-12 lg:grid-cols-2">
 
 
-    {% for featured_job in featured_jobs %}
-    <!-- Job -->
-    <div class="m-5">
-      <div
-        class="group mx-2 mt-10 grid max-w-screen-md grid-cols-12 space-x-8 overflow-hidden rounded-lg border py-8 text-gray-700 shadow-lg transition-all hover:shadow-2xl sm:mx-auto">
+    {% for job in featured_jobs %}
 
-        <!-- Company Logo Section -->
-        <a href="#"
-          class="order-2 col-span-1 mt-4 -ml-14 text-left text-gray-600 hover:text-gray-700 sm:-order-1 sm:ml-4">
-          <div
-            class="group relative w-16 overflow-hidden rounded-lg border p-1 shadow-md transition-all hover:shadow-xl">
-            <img src="{{ featured_job.company.company_logo.url }}" alt="{{featured_job.company.company_name }} Logo"
-              class="h-full w-full object-cover" />
-          </div>
-        </a>
-
-        <!-- Job Details Section -->
-        <div class="col-span-11 flex flex-col pr-8 text-left sm:pl-4">
-          <!-- Company Name -->
-          <h3 class="text-sm text-gray-600 font-medium">{{ featured_job.company.company_name }}</h3>
-
-          <!-- Job Title -->
-          <a href="{% url 'job-detail' featured_job.job_id featured_job.job_title|slugify %}"
-            class="mb-3 overflow-hidden pr-7 text-lg font-semibold sm:text-xl text-gray-900 hover:text-gray-800">
-            {{ featured_job.job_title }}
-          </a>
-
-          <!-- Job Description -->
-          <p class="overflow-hidden pr-7 text-sm text-gray-600 line-clamp-3">
-            {{ featured_job.job_description }}
-          </p>
-
-          <!-- Job Meta Information (Experience, Salary) -->
-          <div
-            class="mt-5 flex flex-col space-y-3 text-sm font-medium text-gray-500 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-2">
-            <div class="flex items-center">
-              <!-- <span class="font-semibold text-gray-800">Experience:</span> -->
-              <span class="ml-2 mr-3 rounded-full px-2 py-0.5 text-green-600 bg-green-100">
-                {{ featured_job.experience_level }}
-              </span>
-            </div>
-            <div class="flex items-center">
-              <!-- <span class="font-semibold text-gray-800">Job type:</span> -->
-              <span class="ml-2 mr-3 rounded-full px-2 py-0.5 text-orange-600 bg-orange-100">
-                {{ featured_job.job_type }}
-              </span>
-            </div>
-            <div class="flex items-center">
-              <!-- <span class="font-semibold text-gray-800">Salary:</span> -->
-              <span class="ml-2 mr-3 rounded-full px-2 py-0.5 text-indigo-600 bg-indigo-100">
-                {{ featured_job.salary_range }}
-              </span>
-            </div>
-          </div>
-
-          <!-- View Details CTA Button -->
-          <div class="mt-4">
-            <a href="{% url 'job-detail' featured_job.job_id featured_job.job_title|slugify %}"
-              class="inline-block mt-4 w-full py-2 px-4 text-center bg-darkgreen text-white font-semibold rounded-md shadow-md transition-all hover:bg-green focus:outline-none">
-              View Details
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    {% endfor %}
+    {% if forloop.counter <= 4 %}
+     <!-- Job -->
+      {% include 'reuseable-components/job-card.html' %}
+      {% endif %}
+      {% endfor %}
 
 
   </div>
@@ -335,73 +276,14 @@
     {% for job in jobs %}
 
     {% if job not in featured_jobs %}
-    <!-- Job Card -->
-    <div class="m-5">
-      <div
-        class="group mx-2 mt-10 grid max-w-screen-md grid-cols-12 space-x-8 overflow-hidden rounded-lg border py-8 text-gray-700 shadow-lg transition-all hover:shadow-2xl sm:mx-auto">
 
-        <!-- Company Logo Section -->
-        <a href="#"
-          class="order-2 col-span-1 mt-4 -ml-14 text-left text-gray-600 hover:text-gray-700 sm:-order-1 sm:ml-4">
-          <div
-            class="group relative w-16 overflow-hidden rounded-lg border p-1 shadow-md transition-all hover:shadow-xl">
-            <img src="{{ job.company.company_logo.url }}" alt="{{ job.company.company_name }} Logo"
-              class="h-full w-full object-cover" />
-          </div>
-        </a>
+    {% if forloop.counter <= 6 %} <!-- Job Card -->
+      {% include 'reuseable-components/job-card.html' %}
+      {% endif %}
 
-        <!-- Job Details Section -->
-        <div class="col-span-11 flex flex-col pr-8 text-left sm:pl-4">
-          <!-- Company Name -->
-          <h3 class="text-sm text-gray-600 font-medium">{{ job.company.company_name }}</h3>
+      {% endif %}
 
-          <!-- Job Title -->
-          <a href="{% url 'job-detail' job.job_id job.job_title|slugify %}"
-            class="mb-3 overflow-hidden pr-7 text-lg font-semibold sm:text-xl text-gray-900 hover:text-gray-800">
-            {{ job.job_title }}
-          </a>
-
-          <!-- Job Description -->
-          <p class="overflow-hidden pr-7 text-sm text-gray-600 line-clamp-3">
-            {{ job.job_description }}
-          </p>
-
-          <!-- Job Meta Information (Experience, Salary) -->
-          <div
-            class="mt-5 flex flex-col space-y-3 text-sm font-medium text-gray-500 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-2">
-            <div class="flex items-center">
-              <!-- <span class="font-semibold text-gray-800">Experience:</span> -->
-              <span class="ml-2 mr-3 rounded-full px-2 py-0.5 text-green-600 bg-green-100">
-                {{ job.experience_level }}
-              </span>
-            </div>
-            <div class="flex items-center">
-              <!-- <span class="font-semibold text-gray-800">Job type:</span> -->
-              <span class="ml-2 mr-3 rounded-full px-2 py-0.5 text-orange-600 bg-orange-100">
-                {{ job.job_type }}
-              </span>
-            </div>
-            <div class="flex items-center">
-              <!-- <span class="font-semibold text-gray-800">Salary:</span> -->
-              <span class="ml-2 mr-3 rounded-full px-2 py-0.5 text-indigo-600 bg-indigo-100">
-                {{ job.salary_range }}
-              </span>
-            </div>
-          </div>
-
-          <!-- View Details CTA Button -->
-          <div class="mt-4">
-            <a href="{% url 'job-detail' job.job_id job.job_title|slugify %}"
-              class="inline-block mt-4 w-full py-2 px-4 text-center bg-darkgreen text-white font-semibold rounded-md shadow-md transition-all hover:bg-green focus:outline-none">
-              View Details
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    {% endif %}
-
-    {% endfor %}
+      {% endfor %}
 
   </div>
 </section>

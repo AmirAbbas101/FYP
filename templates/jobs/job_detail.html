@@ -1,0 +1,71 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}
+{{ job.job_title }}
+{% endblock title %}
+
+{% block content %}
+<div class="container mx-auto px-6 lg:px-32 py-12">
+    <div class="p-8">
+        <!-- Job Header -->
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center">
+                <div class="w-16 h-16 mr-4">
+                    <img src="{{ job.company.company_logo.url }}" alt="{{ job.company.company_name }}"
+                        class="rounded-full shadow-lg" />
+                </div>
+                <div>
+                    <h3 class="text-sm text-gray-600">{{ job.company.company_name }}</h3>
+                    <h1 class="text-3xl font-bold text-gray-800">{{ job.job_title }}</h1>
+                    <h3 class="text-sm text-gray-600">{{ job.location }}</h3>
+                </div>
+            </div>
+            <div class="text-sm text-gray-600">
+                <span class="block">Date Posted: {{ job.date_posted }}</span>
+                <span class="block">Deadline: {{ job.application_deadline }}</span>
+            </div>
+        </div>
+
+        <!-- Job Description -->
+        <div class="mb-4">
+            <h2 class="text-xl font-semibold text-gray-700">Job Description</h2>
+            <p class="text-gray-600">{{ job.job_description }}</p>
+        </div>
+
+        <!-- Required Skills -->
+        <div class="mb-4">
+            <h2 class="text-xl font-semibold text-gray-700">Required Skills</h2>
+            <p class="text-gray-600">{{ job.skills_required }}</p>
+        </div>
+
+        <!-- Responsibilities -->
+        <div class="mb-4">
+            <h2 class="text-xl font-semibold text-gray-700">Responsibilities</h2>
+            <p class="text-gray-600">{{ job.responsibilities }}</p>
+        </div>
+
+        <!-- Job Details -->
+        <div class="mb-4">
+            <h2 class="text-xl font-semibold text-gray-700">Job Details</h2>
+            <div class="grid grid-cols-2 gap-4 text-gray-600">
+                <div><strong>Experience:</strong> {{ job.experience_level }}</div>
+                <div><strong>Job Type:</strong> {{ job.job_type }}</div>
+                <div><strong>Salary:</strong> {{ job.salary_range }}</div>
+                <div><strong>Positions Available:</strong> {{ job.positions }}</div>
+                <div><strong>Degree Required:</strong> {{ job.degree_required }}</div>
+                <div><strong>Job Category:</strong> {{ job.job_category }}</div>
+            </div>
+        </div>
+
+        <!-- Apply Now Button -->
+        <div class="flex justify-end">
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit"
+                    class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 transition">Apply Now</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
